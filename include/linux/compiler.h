@@ -269,7 +269,9 @@ unsigned long read_word_at_a_time(const void *addr)
 	kasan_check_read(addr, 1);
 	return *(unsigned long *)addr;
 }
-
+//sfw**参考linux\include\asm-generic\atomic.h
+//sfw**在某些情况下CPU对内存中变量读写并不是一次完成的，这可能会出现竞争。
+//sfw**而READ_ONCE和WRITE_ONCE实现对变量一次性读取和一次性写入。
 #define WRITE_ONCE(x, val) \
 ({							\
 	union { typeof(x) __val; char __c[1]; } __u =	\
