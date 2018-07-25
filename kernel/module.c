@@ -96,6 +96,7 @@
  * (delete and add uses RCU list operations). */
 DEFINE_MUTEX(module_mutex);
 EXPORT_SYMBOL_GPL(module_mutex);
+//sfw**模块链表，所有加入的模块都加入
 static LIST_HEAD(modules);
 
 #ifdef CONFIG_MODULES_TREE_LOOKUP
@@ -446,6 +447,7 @@ bool each_symbol_section(bool (*fn)(const struct symsearch *arr,
 			 void *data)
 {
 	struct module *mod;
+	//先构建“内核符号表”数组
 	static const struct symsearch arr[] = {
 		{ __start___ksymtab, __stop___ksymtab, __start___kcrctab,
 		  NOT_GPL_ONLY, false },
@@ -466,11 +468,12 @@ bool each_symbol_section(bool (*fn)(const struct symsearch *arr,
 	};
 
 	module_assert_mutex_or_preempt();
-
+	//先在内核符号表中查找
 	if (each_symbol_in_section(arr, ARRAY_SIZE(arr), NULL, fn, data))
 		return true;
-
+	//遍历用户加入的模块
 	list_for_each_entry_rcu(mod, &modules, list) {
+		//构建“用户模块符号”数组
 		struct symsearch arr[] = {
 			{ mod->syms, mod->syms + mod->num_syms, mod->crcs,
 			  NOT_GPL_ONLY, false },
@@ -495,7 +498,7 @@ bool each_symbol_section(bool (*fn)(const struct symsearch *arr,
 
 		if (mod->state == MODULE_STATE_UNFORMED)
 			continue;
-
+		//在用户模块符号表中查找
 		if (each_symbol_in_section(arr, ARRAY_SIZE(arr), mod, fn, data))
 			return true;
 	}
@@ -504,12 +507,16 @@ bool each_symbol_section(bool (*fn)(const struct symsearch *arr,
 EXPORT_SYMBOL_GPL(each_symbol_section);
 
 struct find_symbol_arg {
+	//sfw**输入、输出参数可以这样封装！！！！！！！
+
 	/* Input */
+	//sfw**输入参数
 	const char *name;
 	bool gplok;
 	bool warn;
 
 	/* Output */
+	//sfw**输出参数
 	struct module *owner;
 	const s32 *crc;
 	const struct kernel_symbol *sym;
@@ -543,6 +550,7 @@ static bool check_symbol(const struct symsearch *syms,
 	}
 #endif
 
+	//sfw**输出参数在此赋值
 	fsa->owner = owner;
 	fsa->crc = symversion(syms->crcs, symnum);
 	fsa->sym = &syms->start[symnum];
@@ -575,6 +583,32 @@ static bool find_symbol_in_section(const struct symsearch *syms,
 
 /* Find a symbol and return it, along with, (optional) crc and
  * (optional) module which owns it.  Needs preempt disabled or module_mutex. */
+
+/*sfw**section
+section
+-----------------------
+__start___ksymtab_xxx
+
+__stop___ksymtab_xxx
+-----------------------
+.
+.
+.
+-----------------------
+mod_xxx->start
+
+mod_xxx->start
+-----------------------
+.
+.
+.
+*/
+
+//sfw**find_symbol
+//find_symbol
+//		each_symbol_section(find_symbol_in_section.....)			<--遍历section
+//			each_symbol_in_section(find_symbol_in_section.....)		<--遍历symbol
+
 const struct kernel_symbol *find_symbol(const char *name,
 					struct module **owner,
 					const s32 **crc,

@@ -30,6 +30,7 @@
  * the key and elements in the array are of the same type, you can use
  * the same comparison function for both sort() and bsearch().
  */
+//sfw**二分查找(binary search)
 void *bsearch(const void *key, const void *base, size_t num, size_t size,
 	      int (*cmp)(const void *key, const void *elt))
 {
@@ -45,11 +46,32 @@ void *bsearch(const void *key, const void *base, size_t num, size_t size,
 
 		if (result > 0) {
 			base = pivot + size;
-			num--;
+			num--;					//参考下面***行
 		}
 		num >>= 1;
 	}
 
 	return NULL;
 }
+/*sfw**
+case1：偶数
+--------------------------------
+123456789abcde(14)
+|      |
+b      p
+
+9abcde(6)	 *** ok:(14-1)/2 == 6		err: 14/2 == 7
+|  |
+b  p
+
+case2：奇数
+--------------------------------
+123456789abcdef(15)
+|      |
+b      p
+
+9abcdef(7)
+|  |
+b  p
+*/
 EXPORT_SYMBOL(bsearch);
