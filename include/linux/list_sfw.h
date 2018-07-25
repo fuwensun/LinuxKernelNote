@@ -18,11 +18,15 @@
  * using the generic single-entry routines.
  */
 
+
+//sfw**链表初始化
 #define LIST_HEAD_INIT(name) { &(name), &(name) }
 
+//sfw**链表定义并初始化
 #define LIST_HEAD(name) \
 	struct list_head name = LIST_HEAD_INIT(name)
 
+//sfw**初始化链表元素,带kasan
 static inline void INIT_LIST_HEAD(struct list_head *list)
 {
 	WRITE_ONCE(list->next, list);
@@ -37,6 +41,8 @@ static inline void INIT_LIST_HEAD(struct list_head *list)
  * This is only for internal list manipulation where we know
  * the prev/next entries already!
  */
+
+//sfw**在2个已知的元素间插入新的元素，带kasan
 static inline void __list_add(struct list_head *new,
 			      struct list_head *prev,
 			      struct list_head *next)
@@ -58,6 +64,8 @@ static inline void __list_add(struct list_head *new,
  * Insert a new entry after the specified head.
  * This is good for implementing stacks.
  */
+
+//sfw**在链表的元素后加入新的元素
 static inline void list_add(struct list_head *new, struct list_head *head)
 {
 	__list_add(new, head, head->next);
