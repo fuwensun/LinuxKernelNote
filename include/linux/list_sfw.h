@@ -26,7 +26,7 @@
 #define LIST_HEAD(name) \
 	struct list_head name = LIST_HEAD_INIT(name)
 
-//sfw**初始化链表元素,带kasan
+//sfw**初始化链表结点,带kasan
 static inline void INIT_LIST_HEAD(struct list_head *list)
 {
 	WRITE_ONCE(list->next, list);
@@ -42,7 +42,7 @@ static inline void INIT_LIST_HEAD(struct list_head *list)
  * the prev/next entries already!
  */
 
-//sfw**在2个已知的元素间插入新的元素，带kasan
+//sfw**在两个已知的结点间插入新的结点，带kasan
 static inline void __list_add(struct list_head *new,
 			      struct list_head *prev,
 			      struct list_head *next)
@@ -65,7 +65,7 @@ static inline void __list_add(struct list_head *new,
  * This is good for implementing stacks.
  */
 
-//sfw**在链表的元素后加入新的元素
+//sfw**在链表的结点后加入新的结点
 static inline void list_add(struct list_head *new, struct list_head *head)
 {
 	__list_add(new, head, head->next);
@@ -81,7 +81,7 @@ static inline void list_add(struct list_head *new, struct list_head *head)
  * This is useful for implementing queues.
  */
 
-//sfw**在链表尾部加入元素
+//sfw**在链表尾部加入结点
 static inline void list_add_tail(struct list_head *new, struct list_head *head)
 {
 	__list_add(new, head->prev, head);
@@ -114,6 +114,7 @@ static inline void __list_del_entry(struct list_head *entry)
 	__list_del(entry->prev, entry->next);
 }
 
+//sfw**删除链表结点
 static inline void list_del(struct list_head *entry)
 {
 	__list_del_entry(entry);
@@ -128,6 +129,7 @@ static inline void list_del(struct list_head *entry)
  *
  * If @old was empty, it will be overwritten.
  */
+//sfw**替换链表结点
 static inline void list_replace(struct list_head *old,
 				struct list_head *new)
 {
@@ -136,7 +138,7 @@ static inline void list_replace(struct list_head *old,
 	new->prev = old->prev;
 	new->prev->next = new;
 }
-
+//sfw**安全替换链表结点
 static inline void list_replace_init(struct list_head *old,
 					struct list_head *new)
 {
@@ -148,6 +150,7 @@ static inline void list_replace_init(struct list_head *old,
  * list_del_init - deletes entry from list and reinitialize it.
  * @entry: the element to delete from the list.
  */
+//sfw**安全删除链表结点
 static inline void list_del_init(struct list_head *entry)
 {
 	__list_del_entry(entry);
@@ -159,6 +162,7 @@ static inline void list_del_init(struct list_head *entry)
  * @list: the entry to move
  * @head: the head that will precede our entry
  */
+//sfw**把list结点移动到head结点的后面
 static inline void list_move(struct list_head *list, struct list_head *head)
 {
 	__list_del_entry(list);
@@ -170,6 +174,7 @@ static inline void list_move(struct list_head *list, struct list_head *head)
  * @list: the entry to move
  * @head: the head that will follow our entry
  */
+//sfw**把list结点移动到head结点的前面（即head链表的尾部）
 static inline void list_move_tail(struct list_head *list,
 				  struct list_head *head)
 {
