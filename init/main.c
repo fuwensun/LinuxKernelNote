@@ -870,7 +870,7 @@ static inline void do_trace_initcall_finish(initcall_t fn, int ret)
 	trace_initcall_finish_cb(&initcall_calltime, fn, ret);
 }
 #endif /* !TRACEPOINTS_ENABLED */
-
+//sfw**《遍历initfunc》
 int __init_or_module do_one_initcall(initcall_t fn)
 {
 	int count = preempt_count();
@@ -881,7 +881,7 @@ int __init_or_module do_one_initcall(initcall_t fn)
 		return -EPERM;
 
 	do_trace_initcall_start(fn);
-	ret = fn();
+	ret = fn();							//<-----sfw**执行initfunc
 	do_trace_initcall_finish(fn, ret);
 
 	msgbuf[0] = 0;
@@ -899,8 +899,27 @@ int __init_or_module do_one_initcall(initcall_t fn)
 	add_latent_entropy();
 	return ret;
 }
+/*sfw**内核初始化调用链
+start_kernel
+	rest_init
+    	kernel_thread
+        	kernel_init
+            	kernel_init_freeable
+                	do_basic_setup				<------------
+                    	do_initcalls
+                        	do_initcall_level(level)
+                            	do_one_initcall(initcall_t fn)	<--module静态编译时，xxx_mod_init函数被调用！！！！
+*/
 
+/*sfw**insmod调用链
+insmod
+	SYSCALL_DEFINE3(init_module, ...)
+		load_module
+			do_init_module(mod)
+				do_one_initcall(mod->init)	<--module动态编译时，xxx_mod_init函数被调用！！！！
+*/
 
+//sfw**
 extern initcall_t __initcall_start[];
 extern initcall_t __initcall0_start[];
 extern initcall_t __initcall1_start[];
@@ -911,7 +930,7 @@ extern initcall_t __initcall5_start[];
 extern initcall_t __initcall6_start[];
 extern initcall_t __initcall7_start[];
 extern initcall_t __initcall_end[];
-
+//sfw**
 static initcall_t *initcall_levels[] __initdata = {
 	__initcall0_start,
 	__initcall1_start,
@@ -935,7 +954,7 @@ static char *initcall_level_names[] __initdata = {
 	"device",
 	"late",
 };
-
+//sfw**《遍历initlevel》
 static void __init do_initcall_level(int level)
 {
 	initcall_t *fn;
@@ -952,6 +971,7 @@ static void __init do_initcall_level(int level)
 		do_one_initcall(*fn);
 }
 
+//sfw**《处理init区》
 static void __init do_initcalls(void)
 {
 	int level;

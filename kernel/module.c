@@ -3868,8 +3868,14 @@ static int load_module(struct load_info *info, const char __user *uargs,
 	free_copy(info);
 	return err;
 }
-
-SYSCALL_DEFINE3(init_module, void __user *, umod,
+/*sfw**
+SYSCALL_DEFINE3(init_module, ...)
+	load_module
+		do_init_module(mod)
+			do_one_initcall(mod->init)
+*/
+//sfw**init_module定义
+SYSCALL_DEFINE3(init_module,, void __user *, umod,
 		unsigned long, len, const char __user *, uargs)
 {
 	int err;
@@ -3889,6 +3895,7 @@ SYSCALL_DEFINE3(init_module, void __user *, umod,
 	return load_module(&info, uargs, 0);
 }
 
+//sfw**finit_module定义
 SYSCALL_DEFINE3(finit_module, int, fd, const char __user *, uargs, int, flags)
 {
 	struct load_info info = { };

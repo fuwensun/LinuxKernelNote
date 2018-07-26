@@ -83,7 +83,16 @@ extern void cleanup_module(void);
  * builtin) or at module insertion time (if a module).  There can only
  * be one per module.
  */
+//sfw**module_init定义
 #define module_init(x)	__initcall(x);
+/*sfw**
+#define module_init(x)  __initcall(x);
+	#define __initcall(fn) device_initcall(fn)
+		#define device_initcall(fn)     __define_initcall(fn, 6)
+			#define __define_initcall(fn, id) \
+                static initcall_t __initcall_##fn##id __used \
+                __attribute__((__section__(".initcall" #id ".init"))) = fn	<--module静态编译时，xxx_mod_init函数被设置进initCall区！！！！
+*/
 
 /**
  * module_exit() - driver exit entry point
@@ -126,11 +135,23 @@ extern void cleanup_module(void);
 #define security_initcall(fn)		module_init(fn)
 
 /* Each module must use one module_init(). */
+//sfw**module_init定义
 #define module_init(initfn)					\
+//sfw**__inittest函数测试initfn的类型为initcall_t
 	static inline initcall_t __maybe_unused __inittest(void)		\
 	{ return initfn; }					\
-	int init_module(void) __attribute__((alias(#initfn)));
-
+//sfw**initfn函数被重命名为init_module
+	int init_module(void) __attribute__((alias(#initfn)));					
+/*sfw**module_init调用链
+module_init(initfn)
+	init_module = initfn
+		__this_module.init = init_module
+insmod	
+	SYSCALL_DEFINE3(init_module, ...)
+		load_module
+			do_init_module(mod)
+				do_one_initcall(mod->init)	<--module动态编译时，xxx_mod_init函数被调用！！！！
+*/
 /* This is only required if you want to be unloadable. */
 #define module_exit(exitfn)					\
 	static inline exitcall_t __maybe_unused __exittest(void)		\

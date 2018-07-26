@@ -250,7 +250,7 @@ debug information present at the time of signing.
 ======================
 Loading signed modules
 ======================
-
+//sfw**模块init_module()，finit_module()
 Modules are loaded with insmod, modprobe, ``init_module()`` or
 ``finit_module()``, exactly as for unsigned modules as no processing is
 done in userspace.  The signature checking is all done within the kernel.

@@ -185,6 +185,7 @@ extern bool initcall_debug;
  * This only exists for built-in code, not for modules.
  * Keep main.c:initcall_level_names[] in sync.
  */
+//sfw**
 #define pure_initcall(fn)		__define_initcall(fn, 0)
 
 #define core_initcall(fn)		__define_initcall(fn, 1)
