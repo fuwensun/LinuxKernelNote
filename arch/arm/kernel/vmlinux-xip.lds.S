@@ -93,7 +93,7 @@ SECTIONS
 	}
 	.init.rodata : {
 		INIT_SETUP(16)
-		INIT_CALLS		/*sfw**链接脚本初始发initlevel*/
+		INIT_CALLS		/*sfw**链接脚本初始化initlevel*/
 		CON_INITCALL
 		SECURITY_INITCALL
 		INIT_RAM_FS
