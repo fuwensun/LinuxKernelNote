@@ -322,6 +322,11 @@ bool completion_done(struct completion *x)
 	 * otherwise we can end up freeing the completion before complete()
 	 * is done referencing it.
 	 */
+
+	/*
+	sfw**如果->done为真，需要等待complete()释放->wait.lock,
+	否则最后可能会在complete()结束索引x之前释放它。
+	*/
 	spin_lock_irqsave(&x->wait.lock, flags);
 	spin_unlock_irqrestore(&x->wait.lock, flags);
 	return true;
