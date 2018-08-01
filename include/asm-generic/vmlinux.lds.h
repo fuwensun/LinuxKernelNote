@@ -768,7 +768,7 @@
 		VMLINUX_SYMBOL(__initcall##level##_start) = .;		\
 		KEEP(*(.initcall##level##.init))			\
 		KEEP(*(.initcall##level##s.init))			\
-//sfw**链接脚本初始发initlevel
+//sfw**链接脚本初始化initlevel
 #define INIT_CALLS							\
 		VMLINUX_SYMBOL(__initcall_start) = .;			\
 		KEEP(*(.initcallearly.init))				\
