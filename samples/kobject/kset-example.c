@@ -26,8 +26,9 @@
  * This is our "object" that we will create a few of and register them with
  * sysfs.
  */
-struct foo_obj {
-	struct kobject kobj;
+
+struct foo_obj {			//sfw**子类
+	struct kobject kobj;	//sfw**父类	struct kobject
 	int foo;
 	int baz;
 	int bar;
@@ -35,8 +36,8 @@ struct foo_obj {
 #define to_foo_obj(x) container_of(x, struct foo_obj, kobj)
 
 /* a custom attribute that works just for a struct foo_obj. */
-struct foo_attribute {
-	struct attribute attr;
+struct foo_attribute {			//sfw**子类
+	struct attribute attr;		//sfw**父类
 	ssize_t (*show)(struct foo_obj *foo, struct foo_attribute *attr, char *buf);
 	ssize_t (*store)(struct foo_obj *foo, struct foo_attribute *attr, const char *buf, size_t count);
 };
@@ -49,6 +50,8 @@ struct foo_attribute {
  * transpose back from a "default" kobject to our custom struct foo_obj and
  * then call the show function for that specific object.
  */
+//sfw**C++中的虚函数，子类对象创建时有编译器实现！！！？？？
+//sfw**C中有用户用代码手工实现
 static ssize_t foo_attr_show(struct kobject *kobj,
 			     struct attribute *attr,
 			     char *buf)
@@ -69,6 +72,8 @@ static ssize_t foo_attr_show(struct kobject *kobj,
  * Just like the default show function above, but this one is for when the
  * sysfs "store" is requested (when a value is written to a file.)
  */
+//sfw**C++中的虚函数，子类对象创建时有编译器实现！！！？？？
+//sfw**C中有用户用代码手工实现
 static ssize_t foo_attr_store(struct kobject *kobj,
 			      struct attribute *attr,
 			      const char *buf, size_t len)
@@ -98,6 +103,8 @@ static const struct sysfs_ops foo_sysfs_ops = {
  * NEVER try to get away with just a "blank" release function to try to be
  * smarter than the kernel.  Turns out, no one ever is...
  */
+//sfw**C++中的虚函数，子类对象创建时有编译器实现！！！？？？
+//sfw**C中有用户用代码手工实现
 static void foo_release(struct kobject *kobj)
 {
 	struct foo_obj *foo;
@@ -172,6 +179,7 @@ static struct foo_attribute bar_attribute =
  * Create a group of attributes so that we can create and destroy them all
  * at once.
  */
+//sfw**C中有用户用代码手工赋新值
 static struct attribute *foo_default_attrs[] = {
 	&foo_attribute.attr,
 	&baz_attribute.attr,
@@ -184,9 +192,15 @@ static struct attribute *foo_default_attrs[] = {
  * release function, and the set of default attributes we want created
  * whenever a kobject of this type is registered with the kernel.
  */
+
+//sfw**父类struct kobject 的 “操作集”struct kobj_type，被设置到struct kobject。
+
 static struct kobj_type foo_ktype = {
+//sfw**C++中的虚函数表，子类对象创建时有编译器填充！！！？？？
+//sfw**C中有用户用代码手工填充	
 	.sysfs_ops = &foo_sysfs_ops,
 	.release = foo_release,
+//sfw**C++中的父类字段，子类对象创建时有编译器赋新值！！！？？？
 	.default_attrs = foo_default_attrs,
 };
 
