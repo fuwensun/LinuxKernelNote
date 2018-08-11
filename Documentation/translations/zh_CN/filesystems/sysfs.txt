@@ -1,3 +1,4 @@
+//sfw**
 Chinese translated version of Documentation/filesystems/sysfs.txt
 
 If you have any comment or update to the content, please contact the
