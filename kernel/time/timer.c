@@ -1759,7 +1759,7 @@ static void process_timeout(struct timer_list *t)
  * jiffies will be returned.  In all cases the return value is guaranteed
  * to be non-negative.
  */
-signed long __sched schedule_timeout(signed long timeout)
+signed long __sched schedule_timeout(signed long timeout)	//sfw**
 {
 	struct process_timer timer;
 	unsigned long expire;

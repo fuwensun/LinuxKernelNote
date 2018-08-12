@@ -1969,7 +1969,7 @@ static void ttwu_queue(struct task_struct *p, int cpu, int wake_flags)
  *	   %false otherwise.
  */
 static int
-try_to_wake_up(struct task_struct *p, unsigned int state, int wake_flags)
+try_to_wake_up(struct task_struct *p, unsigned int state, int wake_flags)//sfw**
 {
 	unsigned long flags;
 	int cpu, success = 0;
@@ -3750,7 +3750,7 @@ asmlinkage __visible void __sched preempt_schedule_irq(void)
 	exception_exit(prev_state);
 }
 
-int default_wake_function(wait_queue_entry_t *curr, unsigned mode, int wake_flags,
+int default_wake_function(wait_queue_entry_t *curr, unsigned mode, int wake_flags,//sfw**
 			  void *key)
 {
 	return try_to_wake_up(curr->private, mode, wake_flags);
