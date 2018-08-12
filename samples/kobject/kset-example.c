@@ -50,8 +50,8 @@ struct foo_attribute {			//sfw**子类
  * transpose back from a "default" kobject to our custom struct foo_obj and
  * then call the show function for that specific object.
  */
-//sfw**C++中的虚函数，子类对象创建时有编译器实现！！！？？？
-//sfw**C中有用户用代码手工实现
+//sfw**C++中的虚函数，子类对象创建时由编译器实现！！！？？？
+//sfw**C中由用户用代码手工实现
 static ssize_t foo_attr_show(struct kobject *kobj,
 			     struct attribute *attr,
 			     char *buf)
@@ -72,8 +72,8 @@ static ssize_t foo_attr_show(struct kobject *kobj,
  * Just like the default show function above, but this one is for when the
  * sysfs "store" is requested (when a value is written to a file.)
  */
-//sfw**C++中的虚函数，子类对象创建时有编译器实现！！！？？？
-//sfw**C中有用户用代码手工实现
+//sfw**C++中的虚函数，子类对象创建时由编译器实现！！！？？？
+//sfw**C中由用户用代码手工实现
 static ssize_t foo_attr_store(struct kobject *kobj,
 			      struct attribute *attr,
 			      const char *buf, size_t len)
@@ -103,8 +103,8 @@ static const struct sysfs_ops foo_sysfs_ops = {
  * NEVER try to get away with just a "blank" release function to try to be
  * smarter than the kernel.  Turns out, no one ever is...
  */
-//sfw**C++中的虚函数，子类对象创建时有编译器实现！！！？？？
-//sfw**C中有用户用代码手工实现
+//sfw**C++中的虚函数，子类对象创建时由编译器实现！！！？？？
+//sfw**C中由用户用代码手工实现
 static void foo_release(struct kobject *kobj)
 {
 	struct foo_obj *foo;
@@ -179,7 +179,7 @@ static struct foo_attribute bar_attribute =
  * Create a group of attributes so that we can create and destroy them all
  * at once.
  */
-//sfw**C中有用户用代码手工赋新值
+//sfw**C中由用户用代码手工赋新值
 static struct attribute *foo_default_attrs[] = {
 	&foo_attribute.attr,
 	&baz_attribute.attr,
@@ -196,11 +196,13 @@ static struct attribute *foo_default_attrs[] = {
 //sfw**父类struct kobject 的 “操作集”struct kobj_type，被设置到struct kobject。
 
 static struct kobj_type foo_ktype = {
-//sfw**C++中的虚函数表，子类对象创建时有编译器填充！！！？？？
-//sfw**C中有用户用代码手工填充	
+//sfw**C++中的虚函数表，子类对象创建时由编译器填充！！！？？？
+//sfw**C中由用户用代码手工填充	
 	.sysfs_ops = &foo_sysfs_ops,
 	.release = foo_release,
-//sfw**C++中的父类字段，子类对象创建时有编译器赋新值！！！？？？
+//sfw**C++中的父类字段，子类对象创建时由
+
+编译器赋新值！！！？？？
 	.default_attrs = foo_default_attrs,
 };
 
