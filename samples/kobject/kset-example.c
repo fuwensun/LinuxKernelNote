@@ -37,7 +37,7 @@ struct foo_obj {			//sfw**子类
 
 /* a custom attribute that works just for a struct foo_obj. */
 struct foo_attribute {			//sfw**子类
-	struct attribute attr;		//sfw**父类
+	struct attribute attr;		//sfw**父类 struct attribute
 	ssize_t (*show)(struct foo_obj *foo, struct foo_attribute *attr, char *buf);
 	ssize_t (*store)(struct foo_obj *foo, struct foo_attribute *attr, const char *buf, size_t count);
 };
@@ -50,6 +50,18 @@ struct foo_attribute {			//sfw**子类
  * transpose back from a "default" kobject to our custom struct foo_obj and
  * then call the show function for that specific object.
  */
+/*
+sfw**多态
+
+c++继承方式:
+父类变量(v) = 子类对象(o)
+v.f 调用到子类方法
+
+c组合方式：
+父类变量(v) = 子类对象(o).父对象
+v.f 调用到子类方法（父类方法里调用子类方法）
+*/
+
 //sfw**C++中的虚函数，子类对象创建时由编译器实现！！！？？？
 //sfw**C中由用户用代码手工实现
 static ssize_t foo_attr_show(struct kobject *kobj,
@@ -194,15 +206,12 @@ static struct attribute *foo_default_attrs[] = {
  */
 
 //sfw**父类struct kobject 的 “操作集”struct kobj_type，被设置到struct kobject。
-
 static struct kobj_type foo_ktype = {
 //sfw**C++中的虚函数表，子类对象创建时由编译器填充！！！？？？
 //sfw**C中由用户用代码手工填充	
 	.sysfs_ops = &foo_sysfs_ops,
 	.release = foo_release,
-//sfw**C++中的父类字段，子类对象创建时由
-
-编译器赋新值！！！？？？
+//sfw**C++中的父类字段，子类对象创建时由编译器赋新值！！！？？？
 	.default_attrs = foo_default_attrs,
 };
 
