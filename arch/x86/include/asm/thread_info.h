@@ -53,7 +53,7 @@ struct task_struct;
 #include <asm/cpufeature.h>
 #include <linux/atomic.h>
 
-struct thread_info {
+struct thread_info {			//sfw** x86 struct thread_info
 	unsigned long		flags;		/* low level flags */
 	u32			status;		/* thread synchronous flags */
 };
