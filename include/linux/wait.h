@@ -1114,11 +1114,11 @@ int autoremove_wake_function(struct wait_queue_entry *wq_entry, unsigned mode, i
 
 #define DEFINE_WAIT(name) DEFINE_WAIT_FUNC(name, autoremove_wake_function)
 
-#define init_wait(wait)								\
+#define init_wait(wait)								\//sfw**
 	do {									\
 		(wait)->private = current;					\
 		(wait)->func = autoremove_wake_function;			\
-		INIT_LIST_HEAD(&(wait)->entry);					\
+		INIT_LIST_HEAD(&(wait)->entry);					\//sfw**
 		(wait)->flags = 0;						\
 	} while (0)
 
