@@ -220,28 +220,28 @@ EXPORT_SYMBOL_GPL(__wake_up_sync);	/* For internal use only */
  * loads to move into the critical region).
  */
 void
-prepare_to_wait(struct wait_queue_head *wq_head, struct wait_queue_entry *wq_entry, int state)
+prepare_to_wait(struct wait_queue_head *wq_head, struct wait_queue_entry *wq_entry, int state)//sfw**
 {
 	unsigned long flags;
 
-	wq_entry->flags &= ~WQ_FLAG_EXCLUSIVE;
+	wq_entry->flags &= ~WQ_FLAG_EXCLUSIVE;				//sfw**清零独占唤醒标着
 	spin_lock_irqsave(&wq_head->lock, flags);
-	if (list_empty(&wq_entry->entry))
-		__add_wait_queue(wq_head, wq_entry);
+	if (list_empty(&wq_entry->entry))					//sfw**wq_entry->entry是空的才加入
+		__add_wait_queue(wq_head, wq_entry);			//sfw**entry加入队列头部
 	set_current_state(state);
 	spin_unlock_irqrestore(&wq_head->lock, flags);
 }
 EXPORT_SYMBOL(prepare_to_wait);
 
 void
-prepare_to_wait_exclusive(struct wait_queue_head *wq_head, struct wait_queue_entry *wq_entry, int state)
+prepare_to_wait_exclusive(struct wait_queue_head *wq_head, struct wait_queue_entry *wq_entry, int state)//sfw**
 {
 	unsigned long flags;
 
-	wq_entry->flags |= WQ_FLAG_EXCLUSIVE;
+	wq_entry->flags |= WQ_FLAG_EXCLUSIVE;				//sfw**置位独占唤醒标着
 	spin_lock_irqsave(&wq_head->lock, flags);
-	if (list_empty(&wq_entry->entry))
-		__add_wait_queue_entry_tail(wq_head, wq_entry);
+	if (list_empty(&wq_entry->entry))					//sfw**wq_entry->entry是空的才加入
+		__add_wait_queue_entry_tail(wq_head, wq_entry);	//sfw**entry加入队列尾部
 	set_current_state(state);
 	spin_unlock_irqrestore(&wq_head->lock, flags);
 }
