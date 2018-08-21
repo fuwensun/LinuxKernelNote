@@ -1724,9 +1724,9 @@ static __always_inline bool need_resched(void)
 static inline unsigned int task_cpu(const struct task_struct *p)
 {
 #ifdef CONFIG_THREAD_INFO_IN_TASK
-	return p->cpu;
+	return p->cpu;					//sfw** cpu 在task_struct 中
 #else
-	return task_thread_info(p)->cpu;
+	return task_thread_info(p)->cpu;//sfw** cpu thread_info 中
 #endif
 }
 

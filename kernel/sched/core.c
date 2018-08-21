@@ -1065,7 +1065,7 @@ proper CPU and schedule it away if the CPU (it's executing on)
 is removed from the allowed bitmask.
 翻译：
 改变一个进程的CPU亲和力。把线程迁移到一个合适的CPU,
-如果它之前运行的CPU已经被从allowed bitmask上移除了，那么把它调度开。
+而且，如果它之前运行的CPU已经被从allowed bitmask上移除了，那么把它调度开。
 */
 /*
  * Change a given task's CPU affinity. Migrate the thread to a
