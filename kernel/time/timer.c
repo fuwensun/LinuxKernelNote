@@ -1759,6 +1759,10 @@ static void process_timeout(struct timer_list *t)
  * jiffies will be returned.  In all cases the return value is guaranteed
  * to be non-negative.
  */
+/*
+sfw**非阻塞的设置当前进程的睡眠时间。
+注意：要预先设置进程进进入睡眠态；否则该函数会马上返回，返回值是剩余的定时时间。
+*/
 signed long __sched schedule_timeout(signed long timeout)	//sfw**
 {
 	struct process_timer timer;
