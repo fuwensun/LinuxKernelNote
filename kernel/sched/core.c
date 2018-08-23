@@ -5070,6 +5070,12 @@ EXPORT_SYMBOL(__cond_resched_softirq);
  * If you want to use yield() to be 'nice' for others, use cond_resched().
  * If you still want to use yield(), do not!
  */
+/*
+sfw** yield() - 让出当前的cpu给其他线程
+永远不要使用这个函数，否则99%的可能是做错了。
+调度器总是自由的选取它要调度的任务作为最合适的运行任务。
+如果把 yield() 从你的代码中移除会破坏它，说明你已经犯错了。
+*/
 void __sched yield(void)
 {
 	set_current_state(TASK_RUNNING);
