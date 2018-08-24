@@ -512,7 +512,7 @@ static inline struct task_struct *this_cpu_ksoftirqd(void)
 	return this_cpu_read(ksoftirqd);
 }
 
-/* Tasklets --- multithreaded analogue of BHs.
+/* Tasklets --- multithreaded analogue of BHs.		//sfw**
 
    Main feature differing them of generic softirqs: tasklet
    is running only on one CPU simultaneously.
@@ -532,6 +532,13 @@ static inline struct task_struct *this_cpu_ksoftirqd(void)
      he makes it with spinlocks.
  */
 
+/*
+sfw** Tasklets -- BH 的多线程模拟。
+1，和通常的 Softirq 的最大不同点是：同一时刻同一个 tasklet 只能运行在一个 CPU 上。
+同一个tasklet串行化（同一个Softirq并行），降低了锁的要求。
+2，和 BH 的最大不同点是：同一时刻不同的 tasklet 可以运行在不同的 CPU 上。
+不同的tasklet并行行化（不同的BH串行），提高了响应时间。
+*/
 struct tasklet_struct
 {
 	struct tasklet_struct *next;
