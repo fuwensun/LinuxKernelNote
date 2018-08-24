@@ -193,7 +193,7 @@
  * noop if __CHECKER__.
  */
 #ifndef __CHECKER__
-#define EXPORT_PER_CPU_SYMBOL(var) EXPORT_SYMBOL(var)
+#define EXPORT_PER_CPU_SYMBOL(var) EXPORT_SYMBOL(var)	//sfw**在头文件中EXPORT_SYMBOL
 #define EXPORT_PER_CPU_SYMBOL_GPL(var) EXPORT_SYMBOL_GPL(var)
 #else
 #define EXPORT_PER_CPU_SYMBOL(var)
