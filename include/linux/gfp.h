@@ -242,6 +242,9 @@ struct vm_area_struct;
  *   accessibly by the kernel or hardware. It is typically used by hardware
  *   for buffers that are mapped to userspace (e.g. graphics) that hardware
  *   still must DMA to. cpuset limits are enforced for these allocations.
+ * --------
+ * sfw** GFP_USER 是为用户空间分配的，但内核和硬件也须要访问。典型的用法是作为硬件的buffuer映射
+ * 	到用户空间（比如显卡），所以硬件要能通过DMA访问到。这类分配要强制cpuset限制。
  *
  * GFP_DMA exists for historical reasons and should be avoided where possible.
  *   The flags indicates that the caller requires that the lowest zone be
@@ -257,11 +260,17 @@ struct vm_area_struct;
  *   do not need to be directly accessible by the kernel but that cannot
  *   move once in use. An example may be a hardware allocation that maps
  *   data directly into userspace but has no addressing limitations.
+ * ------------------
+ * sfw** GFP_HIGHUSER 是为用户空间分配，并且可能需要映射到用户空间，不需要被内核直接访问，但是
+ * 一旦使用就不能移动。例如可能某个硬件分配并映射到用户空间，但是不需要地址限制。
  *
  * GFP_HIGHUSER_MOVABLE is for userspace allocations that the kernel does not
  *   need direct access to but can use kmap() when access is required. They
  *   are expected to be movable via page reclaim or page migration. Typically,
  *   pages on the LRU would also be allocated with GFP_HIGHUSER_MOVABLE.
+ * --------------------
+ * sfw** GFP_HIGHUSER_MOVABLE 是为用户空间分配，不需要被内核直接访问，但是需要时可以用 kmap()。
+ * 可以通页回收和页迁移来移动。典型的，LRU状态的页可能将通过 GFP_HIGHUSER_MOVABLE 方式分配。
  *
  * GFP_TRANSHUGE and GFP_TRANSHUGE_LIGHT are used for THP allocations. They are
  *   compound allocations that will generally fail quickly if memory is not
@@ -489,7 +498,7 @@ extern struct page *alloc_pages_current(gfp_t gfp_mask, unsigned order);
 static inline struct page *
 alloc_pages(gfp_t gfp_mask, unsigned int order)
 {
-	return alloc_pages_current(gfp_mask, order);
+	return alloc_pages_current(gfp_mask, order);//sfw** NUMA: current node
 }
 extern struct page *alloc_pages_vma(gfp_t gfp_mask, int order,
 			struct vm_area_struct *vma, unsigned long addr,
@@ -498,7 +507,7 @@ extern struct page *alloc_pages_vma(gfp_t gfp_mask, int order,
 	alloc_pages_vma(gfp_mask, order, vma, addr, numa_node_id(), true)
 #else
 #define alloc_pages(gfp_mask, order) \
-		alloc_pages_node(numa_node_id(), gfp_mask, order)
+		alloc_pages_node(numa_node_id(), gfp_mask, order)	//sfw** UMA: olny node
 #define alloc_pages_vma(gfp_mask, order, vma, addr, node, false)\
 	alloc_pages(gfp_mask, order)
 #define alloc_hugepage_vma(gfp_mask, vma, addr, order)	\
