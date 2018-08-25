@@ -22,7 +22,7 @@
 #include "internal.h"
 
 #ifndef CONFIG_NEED_MULTIPLE_NODES
-struct pglist_data __refdata contig_page_data = {
+struct pglist_data __refdata contig_page_data = {	//sfw**一致性内存
 	.bdata = &bootmem_node_data[0]
 };
 EXPORT_SYMBOL(contig_page_data);
