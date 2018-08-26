@@ -42,9 +42,9 @@
 #include <asm/mmu_context.h>
 #include "internal.h"
 
-void *high_memory;
+void *high_memory;	//sfw**		
 EXPORT_SYMBOL(high_memory);
-struct page *mem_map;
+struct page *mem_map;	//sfw**	
 unsigned long max_mapnr;
 EXPORT_SYMBOL(max_mapnr);
 unsigned long highest_memmap_pfn;
