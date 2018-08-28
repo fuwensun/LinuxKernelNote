@@ -160,6 +160,12 @@ finish_or_fault:
  *   slab page or a secondary page from a compound page
  * - don't permit access to VMAs that don't support it, such as I/O mappings
  */
+/*
+sfw** 引用（get/put）一列，在指定地址起属于特定处理器的，物理页面。并且让VMA覆盖每个物理页面。
+--这是有风险的，因为结果可能是增加了，一个slab页或一个复合页面（多个page组成）中的一部分页面的，
+索引计数器。
+--不允许访问那些不支持的VMA,比如I/O映射型的。
+*/
 long get_user_pages(unsigned long start, unsigned long nr_pages,
 		    unsigned int gup_flags, struct page **pages,
 		    struct vm_area_struct **vmas)
