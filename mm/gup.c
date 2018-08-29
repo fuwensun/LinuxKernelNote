@@ -1017,14 +1017,34 @@ EXPORT_SYMBOL(get_user_pages_unlocked);
  * @locked:	pointer to lock flag indicating whether lock is held and
  *		subsequently whether VM_FAULT_RETRY functionality can be
  *		utilised. Lock must initially be held.
+
+ sfw**  get_user_pages_remote从内核远程持有用户空间的页，get操作必须对应put操作。
+ 文件名gup--get_user_page。
+
+ get_user_pages_remote() - 把用户空间页固定在内存中（阻止swap到硬盘交换区）。
+ @tsk：用作page的默认引用计数的task_struct，如果默认不用引用记录用NULL。
+ @mm： 目标mm的mm_struct(有一串struct vm_area_struct组成)。
+ @start：用户空间起始地址（目标）。
+ @nr_pages: 从start起要固定的页数。
+ @gup_flags: 修饰查找方式的标记。
+ @pages：指向被固定的页的指针的数组。最少应该 nr_pgaes 长。如果调用者只是想确认页
+ 	已经被固定可以是NULL。（输出参数）
+ @vmas: 关联到页的vmas的指针数组。如果调用者不需要可以是NULL。（输出参数）
+ @locked：指向锁标记，表示锁是否被持有以及VM_FAULT_RETRY功能是否能用。锁必须被初始化为持有。
  *
  * Returns number of pages pinned. This may be fewer than the number
  * requested. If nr_pages is 0 or negative, returns 0. If no pages
  * were pinned, returns -errno. Each page returned must be released
  * with a put_page() call when it is finished with. vmas will only
  * remain valid while mmap_sem is held.
+ 
+ 返回被固定的页数。可能会少于要求的。如果 nr_pages 是0或者负数，返回0。如果没有页被固定，
+ 返回 -errno。当不再使用时，返回的页必须调用 put_page() 释放。只有 mmap_sem 被持有时，
+ vmas 才保持可用。
  *
  * Must be called with mmap_sem held for read or write.
+ 
+ 必须持有 mmap_sem 才能读或写。
  *
  * get_user_pages walks a process's page tables and takes a reference to
  * each struct page that each user address corresponds to at a given
@@ -1075,6 +1095,7 @@ EXPORT_SYMBOL(get_user_pages_remote);
  * passing of a locked parameter.  We also obviously don't pass
  * FOLL_REMOTE in here.
  */
+
 long get_user_pages(unsigned long start, unsigned long nr_pages,
 		unsigned int gup_flags, struct page **pages,
 		struct vm_area_struct **vmas)
