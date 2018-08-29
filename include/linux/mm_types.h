@@ -74,7 +74,7 @@ struct hmm;
 #define _struct_page_alignment
 #define _slub_counter_t		unsigned int
 #endif /* !CONFIG_HAVE_ALIGNED_STRUCT_PAGE */
-
+//sfw** 物理内存管理单元 struct page （物理页/页/帧/框/页帧/页框）
 struct page {
 	/* First double word block */
 	unsigned long flags;		/* Atomic flags, some possibly
@@ -273,6 +273,18 @@ struct vm_userfaultfd_ctx {};
  * space that has a special rule for the page-fault handlers (ie a shared
  * library, the executable area etc).
  */
+/*
+sfw** 虚拟空间的管理单元--struct vm_area_struct(vm_area/:VMA/虚拟区间)
+和struct vm_struct的异同：
+1，相同：
+	都是描述虚拟地址空间
+2，不同：
+vm_area_struct(VMA)		   					vm_struct
+---------------------------------------------------------------
+描述全部的虚拟空间							 描述特定的虚拟空间【VMALLOC_START,VMALLOC_END】
+描述一段虚拟空间的性质（xxx段，读/写）		  描述一段虚拟空间和物理内存的映射关系
+偏上层										偏下层（和物理页有关系了）
+*/
 struct vm_area_struct {
 	/* The first cache line has the info for VMA tree walking. */
 
