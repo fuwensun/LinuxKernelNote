@@ -1,6 +1,6 @@
 /* SPDX-License-Identifier: GPL-2.0 */
 #ifndef KERNEL_H
-#define KERNEL_H
+#define KERNEL_H	//sfw** kernel.h
 #include <stdbool.h>
 #include <stdlib.h>
 #include <stddef.h>

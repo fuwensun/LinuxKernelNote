@@ -1,7 +1,7 @@
 /* SPDX-License-Identifier: GPL-2.0 */
 #ifndef _LINUX_MM_TYPES_H
 #define _LINUX_MM_TYPES_H
-
+//sfw** mm_types.h
 #include <linux/mm_types_task.h>
 
 #include <linux/auxvec.h>

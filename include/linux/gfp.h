@@ -1,7 +1,7 @@
 /* SPDX-License-Identifier: GPL-2.0 */
 #ifndef __LINUX_GFP_H
 #define __LINUX_GFP_H
-
+//sfw** gfp.h (get_free_page)
 #include <linux/mmdebug.h>
 #include <linux/mmzone.h>
 #include <linux/stddef.h>
