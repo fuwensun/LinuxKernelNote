@@ -280,7 +280,7 @@ static void free_thread_stack(struct task_struct *tsk)
 	kmem_cache_free(thread_stack_cache, tsk->stack);
 }
 
-void thread_stack_cache_init(void)
+void thread_stack_cache_init(void)//sfw** thread_stack_cache 创建 THREAD_SIZE
 {
 	thread_stack_cache = kmem_cache_create_usercopy("thread_stack",
 					THREAD_SIZE, THREAD_SIZE, 0, 0,
@@ -751,7 +751,7 @@ int __weak arch_dup_task_struct(struct task_struct *dst,
 	return 0;
 }
 
-void set_task_stack_end_magic(struct task_struct *tsk)
+void  set_task_stack_end_magic(struct task_struct *tsk)
 {
 	unsigned long *stackend;
 
@@ -785,7 +785,8 @@ static struct task_struct *dup_task_struct(struct task_struct *orig, int node)
 	 * sure they're properly initialized before using any stack-related
 	 * functions again.
 	 */
-	tsk->stack = stack;
+	//sfw** 设置（填充）进程的内核栈
+	tsk->stack = stack;		//sfw** < task_struct 指向 stask/thead_info >
 #ifdef CONFIG_VMAP_STACK
 	tsk->stack_vm_area = stack_vm_area;
 #endif
@@ -806,7 +807,7 @@ static struct task_struct *dup_task_struct(struct task_struct *orig, int node)
 	tsk->seccomp.filter = NULL;
 #endif
 
-	setup_thread_stack(tsk, orig);
+	setup_thread_stack(tsk, orig);	////sfw** < stask/thread_info 指向 task_strcut >
 	clear_user_return_notifier(tsk);
 	clear_tsk_need_resched(tsk);
 	set_task_stack_end_magic(tsk);

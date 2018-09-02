@@ -595,7 +595,7 @@ struct task_struct {
 	 * For reasons of header soup (see current_thread_info()), this
 	 * must be the first element of task_struct.
 	 */
-	struct thread_info		thread_info;
+	struct thread_info		thread_info;			//sfw** thread_info on task x86[]
 #endif
 	/* -1 unrunnable, 0 runnable, >0 stopped: */
 	volatile long			state;
@@ -683,7 +683,7 @@ struct task_struct {
 	struct plist_node		pushable_tasks;
 	struct rb_node			pushable_dl_tasks;
 #endif
-
+	//sfw** 
 	struct mm_struct		*mm;
 	struct mm_struct		*active_mm;
 
@@ -1534,14 +1534,15 @@ extern void ia64_set_curr_task(int cpu, struct task_struct *p);
 
 void yield(void);
 
-union thread_union {
+
+union thread_union {		//sfw** 为init_thread_union
 #ifndef CONFIG_ARCH_TASK_STRUCT_ON_STACK
 	struct task_struct task;
 #endif
 #ifndef CONFIG_THREAD_INFO_IN_TASK
 	struct thread_info thread_info;
 #endif
-	unsigned long stack[THREAD_SIZE/sizeof(long)];
+	unsigned long stack[THREAD_SIZE/sizeof(long)]; //sfw stack[] 长度 = THREAD_SIZE
 };
 
 #ifndef CONFIG_THREAD_INFO_IN_TASK
@@ -1553,10 +1554,10 @@ extern unsigned long init_stack[THREAD_SIZE / sizeof(unsigned long)];
 #ifdef CONFIG_THREAD_INFO_IN_TASK
 static inline struct thread_info *task_thread_info(struct task_struct *task)
 {
-	return &task->thread_info;
+	return &task->thread_info;										//sfw** thread_info on task x86
 }
 #elif !defined(__HAVE_THREAD_FUNCTIONS)
-# define task_thread_info(task)	((struct thread_info *)(task)->stack)
+# define task_thread_info(task)	((struct thread_info *)(task)->stack)//sfw** thread_info on stack
 #endif
 
 /*

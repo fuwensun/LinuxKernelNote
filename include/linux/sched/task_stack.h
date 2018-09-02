@@ -31,11 +31,11 @@ static inline unsigned long *end_of_stack(const struct task_struct *task)
 #elif !defined(__HAVE_THREAD_FUNCTIONS)
 
 #define task_stack_page(task)	((void *)(task)->stack)
-
+//sfw** 设置（填充）进程的内核栈
 static inline void setup_thread_stack(struct task_struct *p, struct task_struct *org)
 {
-	*task_thread_info(p) = *task_thread_info(org);
-	task_thread_info(p)->task = p;
+	*task_thread_info(p) = *task_thread_info(org);	//sfw** 复制 org 的 thread_info 到 p 的 thread_info
+	task_thread_info(p)->task = p;					//sfw** p->thread_info->task = p，< stask/thread_info 指向 task_strcut >
 }
 
 /*

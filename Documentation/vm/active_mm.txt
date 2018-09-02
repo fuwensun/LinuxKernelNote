@@ -1,5 +1,5 @@
 List:       linux-kernel
-Subject:    Re: active_mm
+Subject:    Re: active_mm //sfw**
 From:       Linus Torvalds <torvalds () transmeta ! com>
 Date:       1999-07-30 21:36:24
 
