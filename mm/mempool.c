@@ -167,11 +167,22 @@ EXPORT_SYMBOL(mempool_destroy);
  * @free_fn:   user-defined element-freeing function.
  * @pool_data: optional private data available to the user-defined functions.
  *
+ * sfw**  mempool_create - 创建一个内存池
+ * @min_nr: 保证为该池分配的元素的最小数量
+ * @alloc_fn: 用户定义的分配函数
+ * @free_fn: 用户定义的释放函数
+ * @pool_data: 可选的,传给用户定义的函数的,变量
+ * 
  * this function creates and allocates a guaranteed size, preallocated
  * memory pool. The pool can be used from the mempool_alloc() and mempool_free()
  * functions. This function might sleep. Both the alloc_fn() and the free_fn()
  * functions might sleep - as long as the mempool_alloc() function is not called
  * from IRQ contexts.
+ * 
+ * 这个函数创建并分配一个保证数量，预先分配的内存池。内存池可以用于  mempool_alloc() 和 
+ * mempool_free() 函数。这个函数可能睡眠。alloc_fn() 和 free_fn() 函数可能睡眠 - 所以
+ * mempool_alloc 函数不能在 IRQ 环境调用。
+ * 
  */
 mempool_t *mempool_create(int min_nr, mempool_alloc_t *alloc_fn,
 				mempool_free_t *free_fn, void *pool_data)
