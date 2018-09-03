@@ -254,13 +254,13 @@ static inline void load_cr3(pgd_t *pgdir)
 }
 
 /*
- * Note that while the legacy 'TSS' name comes from 'Task State Segment',
+ * Note that while the legacy 'TSS' name comes from 'Task State Segment',		//sfw** TSS 的源头
  * on modern x86 CPUs the TSS also holds information important to 64-bit mode,
  * unrelated to the task-switch mechanism:
  */
 #ifdef CONFIG_X86_32
 /* This is the TSS defined by the hardware. */
-struct x86_hw_tss {
+struct x86_hw_tss {				//sfw** x86任务状态
 	unsigned short		back_link, __blh;
 	unsigned long		sp0;
 	unsigned short		ss0, __ss0h;
@@ -378,7 +378,7 @@ DECLARE_PER_CPU_PAGE_ALIGNED(struct tss_struct, cpu_tss_rw);
 DECLARE_PER_CPU(unsigned long, cpu_current_top_of_stack);
 #else
 /* The RO copy can't be accessed with this_cpu_xyz(), so use the RW copy. */
-#define cpu_current_top_of_stack cpu_tss_rw.x86_tss.sp1
+#define cpu_current_top_of_stack cpu_tss_rw.x86_tss.sp1			//sfw** x86
 #endif
 
 /*
@@ -454,8 +454,8 @@ typedef struct {
 	unsigned long		seg;
 } mm_segment_t;
 
-struct thread_struct {
-	/* Cached TLS descriptors: */
+struct thread_struct {									//sfw** 线程描述符
+	/* Cached TLS descriptors: */						//sfw** TLS
 	struct desc_struct	tls_array[GDT_ENTRY_TLS_ENTRIES];
 #ifdef CONFIG_X86_32
 	unsigned long		sp0;
@@ -834,11 +834,11 @@ static inline void spin_lock_prefetch(const void *x)
 #define TOP_OF_INIT_STACK ((unsigned long)&init_stack + sizeof(init_stack) - \
 			   TOP_OF_KERNEL_STACK_PADDING)
 
-#define task_top_of_stack(task) ((unsigned long)(task_pt_regs(task) + 1))
+#define task_top_of_stack(task) ((unsigned long)(task_pt_regs(task) + 1))	//sfw** 
 
-#define task_pt_regs(task) \
+#define task_pt_regs(task) \		//sfw** 
 ({									\
-	unsigned long __ptr = (unsigned long)task_stack_page(task);	\
+	unsigned long __ptr = (unsigned long)task_stack_page(task);	\	//sfw** 
 	__ptr += THREAD_SIZE - TOP_OF_KERNEL_STACK_PADDING;		\
 	((struct pt_regs *)__ptr) - 1;					\
 })

@@ -94,7 +94,7 @@ static inline void update_sp0(struct task_struct *task)
 	load_sp0(task->thread.sp0);
 #else
 	if (static_cpu_has(X86_FEATURE_XENPV))
-		load_sp0(task_top_of_stack(task));
+		load_sp0(task_top_of_stack(task));	//sfw** 
 #endif
 }
 

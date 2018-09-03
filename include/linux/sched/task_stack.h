@@ -16,7 +16,7 @@
  * try_get_task_stack() instead.  task_stack_page will return a pointer
  * that could get freed out from under you.
  */
-static inline void *task_stack_page(const struct task_struct *task)
+static inline void *task_stack_page(const struct task_struct *task)	//sfw** 
 {
 	return task->stack;
 }
@@ -30,7 +30,7 @@ static inline unsigned long *end_of_stack(const struct task_struct *task)
 
 #elif !defined(__HAVE_THREAD_FUNCTIONS)
 
-#define task_stack_page(task)	((void *)(task)->stack)
+#define task_stack_page(task)	((void *)(task)->stack)		//sfw** 
 //sfw** 设置（填充）进程的内核栈
 static inline void setup_thread_stack(struct task_struct *p, struct task_struct *org)
 {

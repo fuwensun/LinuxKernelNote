@@ -1175,7 +1175,7 @@ struct task_struct {
 	randomized_struct_fields_end
 
 	/* CPU-specific state of this task: */
-	struct thread_struct		thread;
+	struct thread_struct		thread;				//sfw** 线程描述符
 
 	/*
 	 * WARNING: on x86, 'thread_struct' contains a variable-sized

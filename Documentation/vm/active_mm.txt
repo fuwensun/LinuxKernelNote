@@ -6,6 +6,8 @@ Date:       1999-07-30 21:36:24
 Cc'd to linux-kernel, because I don't write explanations all that often,
 and when I do I feel better about more people reading them.
 
+//sfw**  抄送linux内核，通常我不写内核代码注解，只有当我希望更多的人理解的时候我才这么做了。
+
 On Fri, 30 Jul 1999, David Mosberger wrote:
 >
 > Is there a brief description someplace on how "mm" vs. "active_mm" in
@@ -13,13 +15,18 @@ On Fri, 30 Jul 1999, David Mosberger wrote:
 > discussed on the mailing lists---I just returned from vacation and
 > wasn't able to follow linux-kernel for a while).
 
+//sfw**  有没有使用,task_struct中的,“MM”和“Actuvithmm”的简要描述？
+
 Basically, the new setup is:
+//sfw** 基本上，新的步骤是：
 
  - we have "real address spaces" and "anonymous address spaces". The
    difference is that an anonymous address space doesn't care about the
    user-level page tables at all, so when we do a context switch into an
    anonymous address space we just leave the previous address space
    active.
+  //sfw ** 有“真实空间”和“匿名空间”之分。不同点是匿名空间根本不关心用户级别的页表，
+  因此当要切换到匿名空间，只要让前一个的地址空间保持可用。
 
    The obvious use for a "anonymous address space" is any thread that
    doesn't need any user mappings - all kernel threads basically fall into

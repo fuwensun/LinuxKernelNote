@@ -412,7 +412,7 @@ static void entry_task_switch(struct task_struct *next)
 }
 
 /*
- * Thread switching.
+ * Thread switching.		//sfw**线程切换
  */
 __notrace_funcgraph struct task_struct *__switch_to(struct task_struct *prev,
 				struct task_struct *next)
