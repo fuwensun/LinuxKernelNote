@@ -9,7 +9,7 @@
 #include <linux/sched.h>
 #include <linux/magic.h>
 
-#ifdef CONFIG_THREAD_INFO_IN_TASK
+#ifdef CONFIG_THREAD_INFO_IN_TASK	//sfw** < thread_info on task > 
 
 /*
  * When accessing the stack of a non-current task that might exit, use
@@ -21,7 +21,7 @@ static inline void *task_stack_page(const struct task_struct *task)
 	return task->stack;
 }
 
-#define setup_thread_stack(new,old)	do { } while(0)
+#define setup_thread_stack(new,old)	do { } while(0)	//sfw** < thread_info on task >, &thread_info == &task, setup_thread_stac为空操作
 
 static inline unsigned long *end_of_stack(const struct task_struct *task)
 {
