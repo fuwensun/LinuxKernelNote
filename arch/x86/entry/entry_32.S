@@ -225,7 +225,7 @@
  * %eax: prev task
  * %edx: next task
  */
-ENTRY(__switch_to_asm)
+ENTRY(__switch_to_asm)				/*sfw** x86 汇编*/
 	/*
 	 * Save callee-saved registers
 	 * This must match the order in struct inactive_task_frame
@@ -235,7 +235,7 @@ ENTRY(__switch_to_asm)
 	pushl	%edi
 	pushl	%esi
 
-	/* switch stack */
+	/* switch stack */						/*sfw** 栈切换*/
 	movl	%esp, TASK_threadsp(%eax)
 	movl	TASK_threadsp(%edx), %esp
 

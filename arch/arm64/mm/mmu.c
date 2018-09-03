@@ -569,6 +569,7 @@ core_initcall(map_entry_trampoline);
 /*
  * Create fine-grained mappings for the kernel.
  */
+//sfw** 为内核创建细粒度映射
 static void __init map_kernel(pgd_t *pgdp)
 {
 	static struct vm_struct vmlinux_text, vmlinux_rodata, vmlinux_inittext,
@@ -626,6 +627,7 @@ static void __init map_kernel(pgd_t *pgdp)
  * paging_init() sets up the page tables, initialises the zone memory
  * maps and sets up the zero page.
  */
+//sfw** 设置页表，初始化内存区映射并设置ZEOR页。
 void __init paging_init(void)
 {
 	phys_addr_t pgd_phys = early_pgtable_alloc();

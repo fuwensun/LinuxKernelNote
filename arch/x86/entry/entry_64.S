@@ -337,10 +337,10 @@ syscall_return_via_sysret:
 END(entry_SYSCALL_64)
 
 /*
- * %rdi: prev task
- * %rsi: next task
+ * %rdi: prev task		/*sfw** 栈切换*/
+ * %rsi: next task		/*sfw** 栈切换*/
  */
-ENTRY(__switch_to_asm)
+ENTRY(__switch_to_asm)					/*sfw** x86 汇编*/
 	UNWIND_HINT_FUNC
 	/*
 	 * Save callee-saved registers
@@ -353,9 +353,9 @@ ENTRY(__switch_to_asm)
 	pushq	%r14
 	pushq	%r15
 
-	/* switch stack */
-	movq	%rsp, TASK_threadsp(%rdi)
-	movq	TASK_threadsp(%rsi), %rsp
+	/* switch stack */					/*sfw** 栈切换*/
+	movq	%rsp, TASK_threadsp(%rdi)	/*sfw**	sp -> prev task.thread.sp */
+	movq	TASK_threadsp(%rsi), %rsp	/*sfw** next task.thread.sp -> sp */
 
 #ifdef CONFIG_CC_STACKPROTECTOR
 	movq	TASK_stack_canary(%rsi), %rbx

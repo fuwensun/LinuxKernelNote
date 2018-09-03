@@ -6,7 +6,7 @@
 
 struct task_struct; /* one of the stranger aspects of C forward declarations */
 
-struct task_struct *__switch_to_asm(struct task_struct *prev,
+struct task_struct *__switch_to_asm(struct task_struct *prev,		/*sfw** x86 汇编*/
 				    struct task_struct *next);
 
 __visible struct task_struct *__switch_to(struct task_struct *prev,
@@ -71,7 +71,7 @@ struct fork_frame {
 do {									\
 	prepare_switch_to(next);					\
 									\
-	((last) = __switch_to_asm((prev), (next)));			\
+	((last) = __switch_to_asm((prev), (next)));			\		/*sfw** x86 汇编*/
 } while (0)
 
 #ifdef CONFIG_X86_32

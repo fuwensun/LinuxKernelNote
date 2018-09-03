@@ -510,6 +510,7 @@ static inline void initcall_debug_enable(void)
 /*
  * Set up kernel memory allocators
  */
+//sfw** 设置内核内存分配器
 static void __init mm_init(void)
 {
 	/*
@@ -519,7 +520,7 @@ static void __init mm_init(void)
 	page_ext_init_flatmem();
 	mem_init();
 	kmem_cache_init();
-	pgtable_init();
+	pgtable_init();				//sfw** 页表
 	vmalloc_init();
 	ioremap_huge_init();
 	/* Should be run before the first non-init thread is created */
@@ -528,7 +529,7 @@ static void __init mm_init(void)
 	pti_init();
 }
 
-asmlinkage __visible void __init start_kernel(void)
+asmlinkage __visible void __init start_kernel(void)		//sfw** start_kernel
 {
 	char *command_line;
 	char *after_dashes;
@@ -587,7 +588,7 @@ asmlinkage __visible void __init start_kernel(void)
 	vfs_caches_init_early();
 	sort_main_extable();
 	trap_init();
-	mm_init();
+	mm_init();						//sfw** 设置内核内存分配器
 
 	ftrace_init();
 

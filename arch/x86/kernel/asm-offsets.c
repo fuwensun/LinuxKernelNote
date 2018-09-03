@@ -31,7 +31,7 @@
 
 void common(void) {
 	BLANK();
-	OFFSET(TASK_threadsp, task_struct, thread.sp);
+	OFFSET(TASK_threadsp, task_struct, thread.sp);		//sfw**
 #ifdef CONFIG_CC_STACKPROTECTOR
 	OFFSET(TASK_stack_canary, task_struct, stack_canary);
 #endif

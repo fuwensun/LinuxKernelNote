@@ -435,7 +435,7 @@ __notrace_funcgraph struct task_struct *__switch_to(struct task_struct *prev,
 	dsb(ish);
 
 	/* the actual thread switch */
-	last = cpu_switch_to(prev, next);
+	last = cpu_switch_to(prev, next);		//sfw** 汇编函数
 
 	return last;
 }

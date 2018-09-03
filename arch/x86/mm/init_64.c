@@ -745,7 +745,7 @@ void __init initmem_init(void)
 	memblock_set_node(0, (phys_addr_t)ULLONG_MAX, &memblock.memory, 0);
 }
 #endif
-
+//sfw** 设置页表，初始化内存区映射并设置ZEOR页。
 void __init paging_init(void)
 {
 	sparse_memory_present_with_active_regions(MAX_NUMNODES);

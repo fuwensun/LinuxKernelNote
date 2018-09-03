@@ -460,7 +460,7 @@ struct thread_struct {									//sfw** 线程描述符
 #ifdef CONFIG_X86_32
 	unsigned long		sp0;
 #endif
-	unsigned long		sp;
+	unsigned long		sp;								//sfw** 存储sp寄存器，线程切换
 #ifdef CONFIG_X86_32
 	unsigned long		sysenter_cs;
 #else

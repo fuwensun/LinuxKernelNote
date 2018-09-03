@@ -323,7 +323,7 @@ static int __init pgd_cache_init(void)
 	 * page for pgd. We are able to just allocate a 32-byte for pgd.
 	 * During boot time, we create a 32-byte slab for pgd table allocation.
 	 */
-	pgd_cache = kmem_cache_create("pgd_cache", PGD_SIZE, PGD_ALIGN,
+	pgd_cache = kmem_cache_create("pgd_cache", PGD_SIZE, PGD_ALIGN,		//sfw** pgd 高速缓存
 				      SLAB_PANIC, NULL);
 	if (!pgd_cache)
 		return -ENOMEM;

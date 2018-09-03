@@ -1214,7 +1214,7 @@ static inline struct pid *task_session(struct task_struct *task)
  * the helpers to get the task's different pids as they are seen
  * from various namespaces
  *
- * task_xid_nr()     : global id, i.e. the id seen from the init namespace;
+ * task_xid_nr()     : global id, i.e. the id seen from the init namespace;			//sfw**
  * task_xid_vnr()    : virtual id, i.e. the id seen from the pid namespace of
  *                     current.
  * task_xid_nr_ns()  : id seen from the ns specified;
