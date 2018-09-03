@@ -21,7 +21,7 @@ extern void paging_init(void);
 #define pgprot_noncached pgprot_writecombine
 
 static inline int pte_file(pte_t pte) { return 0; }
-#define swapper_pg_dir ((pgd_t *) 0)
+#define swapper_pg_dir ((pgd_t *) 0)        //sfw**
 /*
  * ZERO_PAGE is a global shared page that is always zero: used
  * for zero-mapped memory areas etc..
