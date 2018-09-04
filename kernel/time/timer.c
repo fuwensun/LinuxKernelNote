@@ -308,7 +308,7 @@ static unsigned long round_jiffies_common(unsigned long j, int cpu,
 }
 
 /**
- * __round_jiffies - function to round jiffies to a full second
+ * __round_jiffies - function to round jiffies to a full second	//sfw**
  * @j: the time in (absolute) jiffies that should be rounded
  * @cpu: the processor number on which the timeout will happen
  *
