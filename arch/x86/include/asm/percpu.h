@@ -11,7 +11,7 @@
 #endif
 
 #ifdef __ASSEMBLY__
-
+//sfw** x86 per_cpu
 /*
  * PER_CPU finds an address of a per-cpu variable.
  *

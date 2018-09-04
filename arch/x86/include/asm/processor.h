@@ -307,7 +307,7 @@ struct x86_hw_tss {				//sfw** x86任务状态
 
 } __attribute__((packed));
 #else
-struct x86_hw_tss {
+struct x86_hw_tss {			//sfw** 
 	u32			reserved1;
 	u64			sp0;
 

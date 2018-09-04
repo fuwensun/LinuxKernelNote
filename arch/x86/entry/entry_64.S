@@ -203,7 +203,7 @@ ENTRY(entry_SYSCALL_64_stage2)
 	jmp	entry_SYSCALL_64_after_hwframe
 END(entry_SYSCALL_64_stage2)
 
-ENTRY(entry_SYSCALL_64)
+ENTRY(entry_SYSCALL_64)					/*sfw** x86系统调用入口  */
 	UNWIND_HINT_EMPTY
 	/*
 	 * Interrupts are off on entry.

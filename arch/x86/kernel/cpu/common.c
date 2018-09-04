@@ -1466,7 +1466,7 @@ DEFINE_PER_CPU(int, __preempt_count) = INIT_PREEMPT_COUNT;
 EXPORT_PER_CPU_SYMBOL(__preempt_count);
 
 /* May not be marked __init: used by software suspend */
-void syscall_init(void)
+void syscall_init(void)		//sfw**
 {
 	extern char _entry_trampoline[];
 	extern char entry_SYSCALL_64_trampoline[];
@@ -1480,7 +1480,7 @@ void syscall_init(void)
 	if (static_cpu_has(X86_FEATURE_PTI))
 		wrmsrl(MSR_LSTAR, SYSCALL64_entry_trampoline);
 	else
-		wrmsrl(MSR_LSTAR, (unsigned long)entry_SYSCALL_64);
+		wrmsrl(MSR_LSTAR, (unsigned long)entry_SYSCALL_64);//sfw** x86_64 系统调用IRS
 
 #ifdef CONFIG_IA32_EMULATION
 	wrmsrl(MSR_CSTAR, (unsigned long)entry_SYSCALL_compat);
@@ -1549,7 +1549,7 @@ DEFINE_PER_CPU(int, __preempt_count) = INIT_PREEMPT_COUNT;
 EXPORT_PER_CPU_SYMBOL(__preempt_count);
 
 /*
- * On x86_32, vm86 modifies tss.sp0, so sp0 isn't a reliable way to find
+ * On x86_32, vm86 modifies tss.sp0, so sp0 isn't a reliable way to find		//sfw**
  * the top of the kernel stack.  Use an extra percpu variable to track the
  * top of the kernel stack directly.
  */
@@ -1661,7 +1661,7 @@ void cpu_init(void)
 	load_current_idt();
 
 	memset(me->thread.tls_array, 0, GDT_ENTRY_TLS_ENTRIES * 8);
-	syscall_init();
+	syscall_init();					//sfw**
 
 	wrmsrl(MSR_FS_BASE, 0);
 	wrmsrl(MSR_KERNEL_GS_BASE, 0);
