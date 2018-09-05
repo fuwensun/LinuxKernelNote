@@ -35,6 +35,8 @@ typedef unsigned long mm_segment_t;
 
 /*
  * low level task data that entry.S needs immediate access to.
+ * 
+ * sfw** 底层任务（线程）数据，entry.S要快速访问。
  */
 struct thread_info {
 	unsigned long		flags;		/* low level flags */

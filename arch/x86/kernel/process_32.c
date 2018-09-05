@@ -121,7 +121,7 @@ void release_thread(struct task_struct *dead_task)
 	release_vm86_irqs(dead_task);
 }
 
-int copy_thread_tls(unsigned long clone_flags, unsigned long sp,
+int copy_thread_tls(unsigned long clone_flags, unsigned long sp,	//sfw** TLS
 	unsigned long arg, struct task_struct *p, unsigned long tls)
 {
 	struct pt_regs *childregs = task_pt_regs(p);
@@ -169,7 +169,7 @@ int copy_thread_tls(unsigned long clone_flags, unsigned long sp,
 	err = 0;
 
 	/*
-	 * Set a new TLS for the child thread?
+	 * Set a new TLS for the child thread?		//sfw** TLS
 	 */
 	if (clone_flags & CLONE_SETTLS)
 		err = do_set_thread_area(p, -1,
@@ -253,7 +253,7 @@ __switch_to(struct task_struct *prev_p, struct task_struct *next_p)
 	lazy_save_gs(prev->gs);
 
 	/*
-	 * Load the per-thread Thread-Local Storage descriptor.
+	 * Load the per-thread Thread-Local Storage descriptor.//sfw** Thread-Local Storage TLS 源头
 	 */
 	load_TLS(next, cpu);
 

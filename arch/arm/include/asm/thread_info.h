@@ -45,6 +45,9 @@ struct cpu_context_save {
 /*
  * low level task data that entry.S needs immediate access to.
  * __switch_to() assumes cpu_context follows immediately after cpu_domain.
+ * 
+ * sfw** 底层任务（线程）数据，entry.S要快速访问。
+ * __switch_to() 假设 cpu_context 紧跟 cpu_domain。
  */
 struct thread_info {
 	unsigned long		flags;		/* low level flags */

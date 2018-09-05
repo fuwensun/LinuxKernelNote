@@ -47,6 +47,10 @@
  * low level task data that entry.S needs immediate access to
  * - this struct should fit entirely inside of one cache line
  * - this struct shares the supervisor stack pages
+ * 
+ * sfw** 底层任务（线程）数据，entry.S要快速访问
+ * -这个 struct 要合适放入一条缓存线
+ * -这个 struct 共享超级栈页面
  */
 #ifndef __ASSEMBLY__
 struct task_struct;
@@ -54,7 +58,7 @@ struct task_struct;
 #include <linux/atomic.h>
 
 struct thread_info {			//sfw** x86 struct thread_info
-	unsigned long		flags;		/* low level flags */
+	unsigned long		flags;		/* low level flags */	//sfw** 底层标志
 	u32			status;		/* thread synchronous flags */
 };
 

@@ -329,7 +329,7 @@ int copy_thread_tls(unsigned long clone_flags, unsigned long sp,
 	}
 
 	/*
-	 * Set a new TLS for the child thread?
+	 * Set a new TLS for the child thread?	//sfw** TLS
 	 */
 	if (clone_flags & CLONE_SETTLS) {
 #ifdef CONFIG_IA32_EMULATION
