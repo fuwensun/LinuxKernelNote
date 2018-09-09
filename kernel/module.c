@@ -604,7 +604,7 @@ mod_xxx->start
 .
 */
 
-//sfw**find_symbol
+//sfw**module**find_symbol
 //find_symbol
 //		each_symbol_section(find_symbol_in_section.....)			<--遍历section
 //			each_symbol_in_section(find_symbol_in_section.....)		<--遍历symbol
@@ -3469,7 +3469,7 @@ static void do_free_init(struct rcu_head *head)
  * Keep it uninlined to provide a reliable breakpoint target, e.g. for the gdb
  * helper command 'lx-symbols'.
  */
-static noinline int do_init_module(struct module *mod)
+static noinline int do_init_module(struct module *mod)//sfw**module**
 {
 	int ret = 0;
 	struct mod_initfree *freeinit;
@@ -3690,7 +3690,7 @@ static int unknown_module_param_cb(char *param, char *val, const char *modname,
 
 /* Allocate and load the module: note that size of section 0 is always
    zero, and we rely on this for optional sections. */
-static int load_module(struct load_info *info, const char __user *uargs,
+static int load_module(struct load_info *info, const char __user *uargs,	//sfw**module**
 		       int flags)
 {
 	struct module *mod;
@@ -3874,8 +3874,8 @@ SYSCALL_DEFINE3(init_module, ...)
 		do_init_module(mod)
 			do_one_initcall(mod->init)
 */
-//sfw**init_module定义
-SYSCALL_DEFINE3(init_module,, void __user *, umod,
+//sfw**module**init_module定义
+SYSCALL_DEFINE3(init_module, void __user *, umod,
 		unsigned long, len, const char __user *, uargs)
 {
 	int err;
@@ -3895,7 +3895,7 @@ SYSCALL_DEFINE3(init_module,, void __user *, umod,
 	return load_module(&info, uargs, 0);
 }
 
-//sfw**finit_module定义
+//sfw**module**finit_module定义
 SYSCALL_DEFINE3(finit_module, int, fd, const char __user *, uargs, int, flags)
 {
 	struct load_info info = { };

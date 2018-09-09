@@ -941,7 +941,7 @@ dotraplinkage void do_iret_error(struct pt_regs *regs, long error_code)
 }
 #endif
 
-void __init trap_init(void)
+void __init trap_init(void)//sfw**
 {
 	/* Init cpu_entry_area before IST entries are set up */
 	setup_cpu_entry_areas();

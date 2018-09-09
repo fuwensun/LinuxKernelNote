@@ -234,7 +234,7 @@ SECTIONS
 		*(.altinstr_aux)
 	}
 
-	INIT_DATA_SECTION(16)
+	INIT_DATA_SECTION(16)				//sfw**x86**module**
 
 	.x86_cpu_dev.init : AT(ADDR(.x86_cpu_dev.init) - LOAD_OFFSET) {
 		__x86_cpu_dev_start = .;

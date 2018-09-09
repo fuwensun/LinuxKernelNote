@@ -872,7 +872,7 @@ static inline void do_trace_initcall_finish(initcall_t fn, int ret)
 }
 #endif /* !TRACEPOINTS_ENABLED */
 //sfw**《遍历initfunc》
-int __init_or_module do_one_initcall(initcall_t fn)
+int __init_or_module do_one_initcall(initcall_t fn)	//sfw**module**
 {
 	int count = preempt_count();
 	char msgbuf[64];
@@ -900,7 +900,7 @@ int __init_or_module do_one_initcall(initcall_t fn)
 	add_latent_entropy();
 	return ret;
 }
-/*sfw**内核初始化调用链
+/*sfw**module**内核初始化调用链
 start_kernel
 	rest_init
     	kernel_thread
@@ -912,7 +912,7 @@ start_kernel
                             	do_one_initcall(initcall_t fn)	<--module静态编译时，xxx_mod_init函数被调用！！！！
 */
 
-/*sfw**insmod调用链
+/*sfw**module**insmod调用链
 insmod
 	SYSCALL_DEFINE3(init_module, ...)
 		load_module

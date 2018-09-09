@@ -11,7 +11,7 @@
 
 /* x86-64 specific MSRs */
 #define MSR_EFER		0xc0000080 /* extended feature register */
-#define MSR_STAR		0xc0000081 /* legacy mode SYSCALL target */
+#define MSR_STAR		0xc0000081 /* legacy mode SYSCALL target */	//sfw** 传统81号
 #define MSR_LSTAR		0xc0000082 /* long mode SYSCALL target */
 #define MSR_CSTAR		0xc0000083 /* compat mode SYSCALL target */
 #define MSR_SYSCALL_MASK	0xc0000084 /* EFLAGS mask for syscall */

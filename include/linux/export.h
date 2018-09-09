@@ -12,7 +12,7 @@
 
 /* Some toolchains use a `_' prefix for all user symbols. */
 #ifdef CONFIG_HAVE_UNDERSCORE_SYMBOL_PREFIX
-#define __VMLINUX_SYMBOL(x) _##x
+#define __VMLINUX_SYMBOL(x) _##x					//sfw** vmlinux 符号 以“_”开头
 #define __VMLINUX_SYMBOL_STR(x) "_" #x
 #else
 #define __VMLINUX_SYMBOL(x) x

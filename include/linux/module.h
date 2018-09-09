@@ -74,7 +74,7 @@ extern struct module_attribute module_uevent;
 extern int init_module(void);
 extern void cleanup_module(void);
 
-#ifndef MODULE
+#ifndef MODULE			
 /**
  * module_init() - driver initialization entry point
  * @x: function to be run at kernel boot time or module insertion
@@ -83,7 +83,7 @@ extern void cleanup_module(void);
  * builtin) or at module insertion time (if a module).  There can only
  * be one per module.
  */
-//sfw**module_init定义
+//sfw**module**module_init定义(模块静态编译)
 #define module_init(x)	__initcall(x);
 /*sfw**
 #define module_init(x)  __initcall(x);
@@ -135,7 +135,7 @@ extern void cleanup_module(void);
 #define security_initcall(fn)		module_init(fn)
 
 /* Each module must use one module_init(). */
-//sfw**module_init定义
+//sfw**module**module_init定义(模块动态编译)
 #define module_init(initfn)					\
 //sfw**__inittest函数测试initfn的类型为initcall_t
 	static inline initcall_t __maybe_unused __inittest(void)		\
@@ -347,7 +347,7 @@ struct klp_modinfo {
 };
 #endif
 
-struct module {
+struct module {					//sfw**module**
 	enum module_state state;
 
 	/* Member of list of modules */
@@ -409,7 +409,7 @@ struct module {
 	struct exception_table_entry *extable;
 
 	/* Startup function. */
-	int (*init)(void);
+	int (*init)(void);				//sfw**module**
 
 	/* Core layout: rbtree is accessed frequently, so keep together. */
 	struct module_layout core_layout __module_layout_align;

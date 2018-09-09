@@ -67,7 +67,7 @@ void arch_release_task_struct(struct task_struct *tsk);
 
 #endif
 
-/*
+/*sfw** thread_info.flags List
  * thread information flags:
  *  TIF_SYSCALL_TRACE	- syscall trace active
  *  TIF_SYSCALL_TRACEPOINT - syscall tracepoint for ftrace

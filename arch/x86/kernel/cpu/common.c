@@ -1480,7 +1480,7 @@ void syscall_init(void)		//sfw**
 	if (static_cpu_has(X86_FEATURE_PTI))
 		wrmsrl(MSR_LSTAR, SYSCALL64_entry_trampoline);
 	else
-		wrmsrl(MSR_LSTAR, (unsigned long)entry_SYSCALL_64);//sfw** x86_64 系统调用IRS
+		wrmsrl(MSR_LSTAR, (unsigned long)entry_SYSCALL_64);//sfw** x86_64 系统调用
 
 #ifdef CONFIG_IA32_EMULATION
 	wrmsrl(MSR_CSTAR, (unsigned long)entry_SYSCALL_compat);

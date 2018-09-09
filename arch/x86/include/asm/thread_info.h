@@ -73,7 +73,7 @@ struct thread_info {			//sfw** x86 struct thread_info
 
 #endif
 
-/*
+/*sfw** thread_info.flags list
  * thread information flags
  * - these are process state flags that various assembly files
  *   may need to access
@@ -212,13 +212,13 @@ static inline int arch_within_stack_frames(const void * const stack,
 #else /* !__ASSEMBLY__ */
 
 #ifdef CONFIG_X86_64
-# define cpu_current_top_of_stack (cpu_tss_rw + TSS_sp1)
+# define cpu_current_top_of_stack (cpu_tss_rw + TSS_sp1)		//sfw** 
 #endif
 
 #endif
 
 #ifdef CONFIG_COMPAT
-#define TS_I386_REGS_POKED	0x0004	/* regs poked by 32-bit ptracer */
+#define TS_I386_REGS_POKED	0x0004	/* regs poked by 32-bit ptracer */		//sfw** thread_info.states
 #endif
 #ifndef __ASSEMBLY__
 

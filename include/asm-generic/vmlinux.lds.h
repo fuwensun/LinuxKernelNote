@@ -768,7 +768,7 @@
 		VMLINUX_SYMBOL(__initcall##level##_start) = .;		\
 		KEEP(*(.initcall##level##.init))			\
 		KEEP(*(.initcall##level##s.init))			\
-//sfw**链接脚本初始化initlevel
+//sfw**module**链接脚本初始化initlevel
 #define INIT_CALLS							\
 		VMLINUX_SYMBOL(__initcall_start) = .;			\
 		KEEP(*(.initcallearly.init))				\
@@ -954,11 +954,11 @@
 		VMLINUX_SYMBOL(_einittext) = .;				\
 	}
 
-#define INIT_DATA_SECTION(initsetup_align)				\
+#define INIT_DATA_SECTION(initsetup_align)				\		//sfw**module**
 	.init.data : AT(ADDR(.init.data) - LOAD_OFFSET) {		\
 		INIT_DATA						\
 		INIT_SETUP(initsetup_align)				\
-		INIT_CALLS						\
+		INIT_CALLS						\				//sfw**module**
 		CON_INITCALL						\
 		SECURITY_INITCALL					\
 		INIT_RAM_FS						\

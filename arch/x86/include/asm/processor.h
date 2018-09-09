@@ -315,7 +315,7 @@ struct x86_hw_tss {			//sfw**
 	 * We store cpu_current_top_of_stack in sp1 so it's always accessible.
 	 * Linux does not use ring 1, so sp1 is not otherwise needed.
 	 */
-	u64			sp1;
+	u64			sp1;		//sfw**
 
 	u64			sp2;
 	u64			reserved2;
@@ -351,7 +351,7 @@ struct tss_struct {
 	 * at risk of violating the SDM's advice and potentially triggering
 	 * errata.
 	 */
-	struct x86_hw_tss	x86_tss;
+	struct x86_hw_tss	x86_tss;		//sfw**
 
 	/*
 	 * The extra 1 is there because the CPU will access an
@@ -530,7 +530,7 @@ static inline void arch_thread_struct_whitelist(unsigned long *offset,
  * ever touches our thread-synchronous status, so we don't
  * have to worry about atomic accesses.
  */
-#define TS_COMPAT		0x0002	/* 32bit syscall active (64BIT)*/
+#define TS_COMPAT		0x0002	/* 32bit syscall active (64BIT)*/		//sfw** thread_info.states
 
 /*
  * Set IOPL bits in EFLAGS from given mask

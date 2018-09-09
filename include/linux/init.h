@@ -167,7 +167,7 @@ extern bool initcall_debug;
  * as KEEP() in the linker script.
  */
 
-#define __define_initcall(fn, id) \
+#define __define_initcall(fn, id) \						//sfw**module**
 	static initcall_t __initcall_##fn##id __used \
 	__attribute__((__section__(".initcall" #id ".init"))) = fn;
 
@@ -204,7 +204,7 @@ extern bool initcall_debug;
 #define late_initcall(fn)		__define_initcall(fn, 7)
 #define late_initcall_sync(fn)		__define_initcall(fn, 7s)
 
-#define __initcall(fn) device_initcall(fn)
+#define __initcall(fn) device_initcall(fn)			//sfw**module**
 
 #define __exitcall(fn)						\
 	static exitcall_t __exitcall_##fn __exit_call = fn

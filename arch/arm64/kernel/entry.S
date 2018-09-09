@@ -619,8 +619,8 @@ ENDPROC(el1_irq)
 el1_preempt:
 	mov	x24, lr
 1:	bl	preempt_schedule_irq		// irq en/disable is done inside
-	ldr	x0, [tsk, #TSK_TI_FLAGS]	// get new tasks TI_FLAGS
-	tbnz	x0, #TIF_NEED_RESCHED, 1b	// needs rescheduling?
+	ldr	x0, [tsk, #TSK_TI_FLAGS]	// get new tasks TI_FLAGS				//sfw**
+	tbnz	x0, #TIF_NEED_RESCHED, 1b	// needs rescheduling?				//sfw**
 	ret	x24
 #endif
 
