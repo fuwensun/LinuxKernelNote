@@ -391,7 +391,7 @@ struct orig_ist {
 #ifdef CONFIG_X86_64
 DECLARE_PER_CPU(struct orig_ist, orig_ist);
 
-union irq_stack_union {
+union irq_stack_union {							//sfw** irq_stasck
 	char irq_stack[IRQ_STACK_SIZE];
 	/*
 	 * GCC hardcodes the stack canary as %gs:40.  Since the

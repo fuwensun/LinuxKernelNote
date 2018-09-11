@@ -72,7 +72,7 @@ startup_64:
 	 */
 
 	/* Set up the stack for verify_cpu(), similar to initial_stack below */
-	leaq	(__end_init_task - SIZEOF_PTREGS)(%rip), %rsp
+	leaq	(__end_init_task - SIZEOF_PTREGS)(%rip), %rsp					//sfw**initial_stack**
 
 	/* Sanitize CPU configuration */
 	call verify_cpu
@@ -164,7 +164,7 @@ ENTRY(secondary_startup_64)
 	movq	%rax, %cr0
 
 	/* Setup a boot time stack */
-	movq initial_stack(%rip), %rsp
+	movq initial_stack(%rip), %rsp			//sfw**initial_stack**
 
 	/* zero EFLAGS after setting rsp */
 	pushq $0
@@ -252,7 +252,7 @@ END(secondary_startup_64)
  * start_secondary() via .Ljump_to_C_code.
  */
 ENTRY(start_cpu0)
-	movq	initial_stack(%rip), %rsp
+	movq	initial_stack(%rip), %rsp						
 	UNWIND_HINT_EMPTY
 	jmp	.Ljump_to_C_code
 ENDPROC(start_cpu0)
@@ -270,7 +270,7 @@ ENDPROC(start_cpu0)
 	 * The SIZEOF_PTREGS gap is a convention which helps the in-kernel
 	 * unwinder reliably detect the end of the stack.
 	 */
-	.quad  init_thread_union + THREAD_SIZE - SIZEOF_PTREGS
+	.quad  init_thread_union + THREAD_SIZE - SIZEOF_PTREGS			//sfw**initial_stack**
 	__FINITDATA
 
 	__INIT

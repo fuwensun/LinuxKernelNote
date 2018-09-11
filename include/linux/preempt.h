@@ -62,7 +62,7 @@
  * Disable preemption until the scheduler is running -- use an unconditional
  * value so that it also works on !PREEMPT_COUNT kernels.
  *
- * Reset by start_kernel()->sched_init()->init_idle()->init_idle_preempt_count().
+ * Reset by start_kernel()->sched_init()->init_idle()->init_idle_preempt_count().	//sfw**
  */
 #define INIT_PREEMPT_COUNT	PREEMPT_OFFSET
 

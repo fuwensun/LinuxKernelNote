@@ -394,7 +394,7 @@ static void __init setup_command_line(char *command_line)
 
 static __initdata DECLARE_COMPLETION(kthreadd_done);
 
-static noinline void __ref rest_init(void)
+static noinline void __ref rest_init(void)	//sfw**
 {
 	struct task_struct *tsk;
 	int pid;
@@ -405,7 +405,7 @@ static noinline void __ref rest_init(void)
 	 * the init task will end up wanting to create kthreads, which, if
 	 * we schedule it before we create kthreadd, will OOPS.
 	 */
-	pid = kernel_thread(kernel_init, NULL, CLONE_FS);
+	pid = kernel_thread(kernel_init, NULL, CLONE_FS);					//sfw**
 	/*
 	 * Pin init on the boot CPU. Task migration is not properly working
 	 * until sched_init_smp() has been run. It will set the allowed
@@ -417,7 +417,7 @@ static noinline void __ref rest_init(void)
 	rcu_read_unlock();
 
 	numa_default_policy();
-	pid = kernel_thread(kthreadd, NULL, CLONE_FS | CLONE_FILES);
+	pid = kernel_thread(kthreadd, NULL, CLONE_FS | CLONE_FILES);		//sfw**
 	rcu_read_lock();
 	kthreadd_task = find_task_by_pid_ns(pid, &init_pid_ns);
 	rcu_read_unlock();
@@ -438,8 +438,8 @@ static noinline void __ref rest_init(void)
 	 * at least once to get things moving:
 	 */
 	schedule_preempt_disabled();
-	/* Call into cpu_idle with preempt disabled */
-	cpu_startup_entry(CPUHP_ONLINE);
+	/* Call into cpu_idle with preempt disabled */				//sfw**switch**
+	cpu_startup_entry(CPUHP_ONLINE);						
 }
 
 /* Check for early params. */
@@ -534,7 +534,7 @@ asmlinkage __visible void __init start_kernel(void)		//sfw** start_kernel
 	char *command_line;
 	char *after_dashes;
 
-	set_task_stack_end_magic(&init_task);
+	set_task_stack_end_magic(&init_task);	//sfw**init_task 的stask 正式初始化好了,接下来才有可能用它，在哪里开始用了？？
 	smp_setup_processor_id();
 	debug_objects_early_init();
 
@@ -600,7 +600,7 @@ asmlinkage __visible void __init start_kernel(void)		//sfw** start_kernel
 	 * timer interrupt). Full topology setup happens at smp_init()
 	 * time - but meanwhile we still have a functioning scheduler.
 	 */
-	sched_init();
+	sched_init();					//sfw** idle进程的初始化 -> 调度器开始工作,
 	/*
 	 * Disable preemption - early bootup scheduling is extremely
 	 * fragile until we cpu_idle() for the first time.
@@ -632,7 +632,7 @@ asmlinkage __visible void __init start_kernel(void)		//sfw** start_kernel
 	if (initcall_debug)
 		initcall_debug_enable();
 
-	context_tracking_init();
+	context_tracking_init();				//sfw**
 	/* init some links before init_ISA_irqs() */
 	early_irq_init();
 	init_IRQ();
@@ -705,7 +705,7 @@ asmlinkage __visible void __init start_kernel(void)		//sfw** start_kernel
 	if (efi_enabled(EFI_RUNTIME_SERVICES))
 		efi_enter_virtual_mode();
 #endif
-	thread_stack_cache_init();
+	thread_stack_cache_init();		//sfw**
 	cred_init();
 	fork_init();
 	proc_caches_init();
@@ -736,7 +736,7 @@ asmlinkage __visible void __init start_kernel(void)		//sfw** start_kernel
 	}
 
 	/* Do the rest non-__init'ed, we're now alive */
-	rest_init();
+	rest_init();				//sfw**
 }
 
 /* Call all constructor functions linked into the kernel. */

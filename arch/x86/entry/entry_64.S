@@ -216,8 +216,8 @@ ENTRY(entry_SYSCALL_64)					/*sfw** x86系统调用入口  */
 	 * This path is only taken when PAGE_TABLE_ISOLATION is disabled so it
 	 * is not required to switch CR3.
 	 */
-	movq	%rsp, PER_CPU_VAR(rsp_scratch)
-	movq	PER_CPU_VAR(cpu_current_top_of_stack), %rsp
+	movq	%rsp, PER_CPU_VAR(rsp_scratch)						//sfw**syscall**保存用户空间的sp
+	movq	PER_CPU_VAR(cpu_current_top_of_stack), %rsp			//sfw**syscall**内核栈载入sp
 
 	/* Construct struct pt_regs on stack */
 	pushq	$__USER_DS			/* pt_regs->ss */
@@ -235,7 +235,7 @@ GLOBAL(entry_SYSCALL_64_after_hwframe)
 	/* IRQs are off. */
 	movq	%rax, %rdi
 	movq	%rsp, %rsi
-	call	do_syscall_64		/* returns with IRQs disabled */
+	call	do_syscall_64		/* returns with IRQs disabled */	//sfw**syscall**x86系统调用
 
 	TRACE_IRQS_IRETQ		/* we're about to change IF */
 
@@ -320,7 +320,7 @@ syscall_return_via_sysret:
 	 * Save old stack pointer and switch to trampoline stack.
 	 */
 	movq	%rsp, %rdi
-	movq	PER_CPU_VAR(cpu_tss_rw + TSS_sp0), %rsp
+	movq	PER_CPU_VAR(cpu_tss_rw + TSS_sp0), %rsp		//sfw**syscall**sp存入TSS_sp0,sp已经到栈底
 
 	pushq	RSP-RDI(%rdi)	/* RSP */
 	pushq	(%rdi)		/* RDI */
@@ -329,7 +329,7 @@ syscall_return_via_sysret:
 	 * We are on the trampoline stack.  All regs except RDI are live.
 	 * We can do future final exit work right here.
 	 */
-	SWITCH_TO_USER_CR3_STACK scratch_reg=%rdi
+	SWITCH_TO_USER_CR3_STACK scratch_reg=%rdi		//sfw**syscall**恢复用户空间的sp
 
 	popq	%rdi
 	popq	%rsp
@@ -340,7 +340,7 @@ END(entry_SYSCALL_64)
  * %rdi: prev task		/*sfw** 栈切换*/
  * %rsi: next task		/*sfw** 栈切换*/
  */
-ENTRY(__switch_to_asm)					/*sfw** x86 汇编*/
+ENTRY(__switch_to_asm)					/*sfw**switch** x86 汇编*/
 	UNWIND_HINT_FUNC
 	/*
 	 * Save callee-saved registers

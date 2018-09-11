@@ -1941,7 +1941,7 @@ static __latent_entropy struct task_struct *copy_process(
 			p->signal->has_child_subreaper = p->real_parent->signal->has_child_subreaper ||
 							 p->real_parent->signal->is_child_subreaper;
 			list_add_tail(&p->sibling, &p->real_parent->children);
-			list_add_tail_rcu(&p->tasks, &init_task.tasks);
+			list_add_tail_rcu(&p->tasks, &init_task.tasks);		//sfw**所有fork出来的进程都加入init_task.tasks
 			attach_pid(p, PIDTYPE_PGID);
 			attach_pid(p, PIDTYPE_SID);
 			__this_cpu_inc(process_counts);

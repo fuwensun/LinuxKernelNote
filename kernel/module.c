@@ -3347,7 +3347,7 @@ static struct module *layout_and_allocate(struct load_info *info, int flags)
 	if (blacklisted(info->name))
 		return ERR_PTR(-EPERM);
 
-	err = check_modinfo(mod, info, flags);
+	err = check_modinfo(mod, info, flags);	//sfw**module**
 	if (err)
 		return ERR_PTR(err);
 
@@ -3372,11 +3372,11 @@ static struct module *layout_and_allocate(struct load_info *info, int flags)
 	/* Determine total sizes, and put offsets in sh_entsize.  For now
 	   this is done generically; there doesn't appear to be any
 	   special cases for the architectures. */
-	layout_sections(mod, info);
-	layout_symtab(mod, info);
+	layout_sections(mod, info);			//sfw**module**
+	layout_symtab(mod, info);			//sfw**module**
 
 	/* Allocate and move to the final place */
-	err = move_module(mod, info);
+	err = move_module(mod, info);		//sfw**module**
 	if (err)
 		return ERR_PTR(err);
 
@@ -3706,7 +3706,7 @@ static int load_module(struct load_info *info, const char __user *uargs,	//sfw**
 		goto free_copy;
 
 	/* Figure out module layout, and allocate all the memory. */
-	mod = layout_and_allocate(info, flags);
+	mod = layout_and_allocate(info, flags);		//sfw**module**
 	if (IS_ERR(mod)) {
 		err = PTR_ERR(mod);
 		goto free_copy;
@@ -3873,6 +3873,15 @@ SYSCALL_DEFINE3(init_module, ...)
 	load_module
 		do_init_module(mod)
 			do_one_initcall(mod->init)
+
+init_module
+    load_module
+        layout_and_allocate
+                check_modinfo
+					get_modinfo
+				layout_sections(mod, info);	
+				layout_symtab(mod, info);		
+				move_module(mod, info);		
 */
 //sfw**module**init_module定义
 SYSCALL_DEFINE3(init_module, void __user *, umod,

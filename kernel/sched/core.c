@@ -2842,7 +2842,7 @@ asmlinkage __visible void schedule_tail(struct task_struct *prev)
  * context_switch - switch to the new MM and the new thread's register state.
  */
 static __always_inline struct rq *
-context_switch(struct rq *rq, struct task_struct *prev,
+context_switch(struct rq *rq, struct task_struct *prev,			//sfw**switch**
 	       struct task_struct *next, struct rq_flags *rf)
 {
 	struct mm_struct *mm, *oldmm;
@@ -2882,7 +2882,7 @@ context_switch(struct rq *rq, struct task_struct *prev,
 	prepare_lock_switch(rq, next, rf);
 
 	/* Here we just switch the register state and the stack. */
-	switch_to(prev, next, prev);
+	switch_to(prev, next, prev);							//sfw**switch**
 	barrier();
 
 	return finish_task_switch(prev);
@@ -5423,7 +5423,7 @@ void show_state_filter(unsigned long state_filter)
  * NOTE: this function does not set the idle thread's NEED_RESCHED
  * flag, to make booting more robust.
  */
-void init_idle(struct task_struct *idle, int cpu)
+void init_idle(struct task_struct *idle, int cpu)	//sfw**init**
 {
 	struct rq *rq = cpu_rq(cpu);
 	unsigned long flags;
@@ -5431,7 +5431,7 @@ void init_idle(struct task_struct *idle, int cpu)
 	raw_spin_lock_irqsave(&idle->pi_lock, flags);
 	raw_spin_lock(&rq->lock);
 
-	__sched_fork(0, idle);
+	__sched_fork(0, idle);					//sfw**idle进程调度相关设置，放入调度队列
 	idle->state = TASK_RUNNING;
 	idle->se.exec_start = sched_clock();
 	idle->flags |= PF_IDLE;
@@ -5978,7 +5978,7 @@ static struct kmem_cache *task_group_cache __read_mostly;
 DECLARE_PER_CPU(cpumask_var_t, load_balance_mask);
 DECLARE_PER_CPU(cpumask_var_t, select_idle_mask);
 
-void __init sched_init(void)
+void __init sched_init(void)			//sfw**
 {
 	int i, j;
 	unsigned long alloc_size = 0, ptr;
@@ -6129,7 +6129,7 @@ void __init sched_init(void)
 	 * but because we are the idle thread, we just pick up running again
 	 * when this runqueue becomes "idle".
 	 */
-	init_idle(current, smp_processor_id());
+	init_idle(current, smp_processor_id());			//sfw**idle进程的初始化
 
 	calc_load_update = jiffies + LOAD_FREQ;
 
@@ -6141,7 +6141,7 @@ void __init sched_init(void)
 
 	init_schedstats();
 
-	scheduler_running = 1;
+	scheduler_running = 1;							//sfw**scheduler**调度器开始工作
 }
 
 #ifdef CONFIG_DEBUG_ATOMIC_SLEEP

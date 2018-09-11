@@ -53,11 +53,11 @@ struct task_struct init_task
 #endif
 = {
 #ifdef CONFIG_THREAD_INFO_IN_TASK
-	.thread_info	= INIT_THREAD_INFO(init_task),
+	.thread_info	= INIT_THREAD_INFO(init_task),			//sfw**thread
 	.stack_refcount	= ATOMIC_INIT(1),
 #endif
 	.state		= 0,
-	.stack		= init_stack,
+	.stack		= init_stack,				//sfw**
 	.usage		= ATOMIC_INIT(2),
 	.flags		= PF_KTHREAD,
 	.prio		= MAX_PRIO - 20,
@@ -95,7 +95,7 @@ struct task_struct init_task
 	RCU_POINTER_INITIALIZER(real_cred, &init_cred),
 	RCU_POINTER_INITIALIZER(cred, &init_cred),
 	.comm		= INIT_TASK_COMM,
-	.thread		= INIT_THREAD,
+	.thread		= INIT_THREAD,											//sfw**thread
 	.fs		= &init_fs,
 	.files		= &init_files,
 	.signal		= &init_signals,

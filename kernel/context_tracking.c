@@ -204,7 +204,7 @@ void __init context_tracking_cpu_set(int cpu)
 	set_tsk_thread_flag(&init_task, TIF_NOHZ);
 	WARN_ON_ONCE(!tasklist_empty());
 
-	initialized = true;
+	initialized = true;			//sfw**
 }
 
 #ifdef CONFIG_CONTEXT_TRACKING_FORCE

@@ -266,7 +266,7 @@ __visible inline void syscall_return_slowpath(struct pt_regs *regs)
 }
 
 #ifdef CONFIG_X86_64
-__visible void do_syscall_64(unsigned long nr, struct pt_regs *regs)
+__visible void do_syscall_64(unsigned long nr, struct pt_regs *regs)//sfw**syscall**
 {
 	struct thread_info *ti;
 
@@ -284,7 +284,7 @@ __visible void do_syscall_64(unsigned long nr, struct pt_regs *regs)
 	nr &= __SYSCALL_MASK;
 	if (likely(nr < NR_syscalls)) {
 		nr = array_index_nospec(nr, NR_syscalls);
-		regs->ax = sys_call_table[nr](regs);
+		regs->ax = sys_call_table[nr](regs);				//sfw**syscall**
 	}
 
 	syscall_return_slowpath(regs);

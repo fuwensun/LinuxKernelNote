@@ -74,7 +74,7 @@ extern struct module_attribute module_uevent;
 extern int init_module(void);
 extern void cleanup_module(void);
 
-#ifndef MODULE			
+#ifndef MODULE		//sfw**module**内核编译时 makefile 动态控制	
 /**
  * module_init() - driver initialization entry point
  * @x: function to be run at kernel boot time or module insertion
