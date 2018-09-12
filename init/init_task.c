@@ -46,8 +46,7 @@ static struct sighand_struct init_sighand = {
  * Set up the first task table, touch at your own risk!. Base=0,
  * limit=0x1fffff (=2MB)
  */
-//sfw** init_task 描述符
-struct task_struct init_task
+struct task_struct init_task	//sfw**init_task** 描述符
 #ifdef CONFIG_ARCH_TASK_STRUCT_ON_STACK
 	__init_task_data
 #endif

@@ -417,7 +417,7 @@ static noinline void __ref rest_init(void)	//sfw**
 	rcu_read_unlock();
 
 	numa_default_policy();
-	pid = kernel_thread(kthreadd, NULL, CLONE_FS | CLONE_FILES);		//sfw**
+	pid = kernel_thread(kthreadd, NULL, CLONE_FS | CLONE_FILES);		//sfw**kthread**
 	rcu_read_lock();
 	kthreadd_task = find_task_by_pid_ns(pid, &init_pid_ns);
 	rcu_read_unlock();

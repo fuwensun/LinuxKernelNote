@@ -284,7 +284,7 @@
 	. = ALIGN(align);						\
 	*(.data..cacheline_aligned)
 
-#define INIT_TASK_DATA(align)						\
+#define INIT_TASK_DATA(align)						\		//sfw**inittask**
 	. = ALIGN(align);						\
 	VMLINUX_SYMBOL(__start_init_task) = .;				\
 	VMLINUX_SYMBOL(init_thread_union) = .;				\

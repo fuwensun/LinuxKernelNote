@@ -1,5 +1,5 @@
 /* SPDX-License-Identifier: GPL-2.0 */
-/* thread_info.h: low-level thread information
+/* thread_info.h: low-level thread information		//sfw**thread_info**
  *
  * Copyright (C) 2002  David Howells (dhowells@redhat.com)
  * - Incorporating suggestions made by Linus Torvalds and Dave Miller
@@ -73,8 +73,8 @@ struct thread_info {			//sfw** x86 struct thread_info
 
 #endif
 
-/*sfw** thread_info.flags list
- * thread information flags
+/*
+ * thread information flags			//sfw**thread_info.flags************* list
  * - these are process state flags that various assembly files
  *   may need to access
  */

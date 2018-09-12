@@ -344,7 +344,7 @@ ENTRY(__switch_to_asm)					/*sfw**switch** x86 汇编*/
 	UNWIND_HINT_FUNC
 	/*
 	 * Save callee-saved registers
-	 * This must match the order in inactive_task_frame
+	 * This must match the order in inactive_task_frame //sfw**inactive_task_frame**
 	 */
 	pushq	%rbp
 	pushq	%rbx

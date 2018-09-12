@@ -23,8 +23,8 @@
 #include <trace/events/sched.h>
 
 static DEFINE_SPINLOCK(kthread_create_lock);
-static LIST_HEAD(kthread_create_list);
-struct task_struct *kthreadd_task;
+static LIST_HEAD(kthread_create_list);			//sfw**kthread**
+struct task_struct *kthreadd_task;				//sfw**kthread**
 
 struct kthread_create_info
 {
@@ -293,10 +293,10 @@ struct task_struct *__kthread_create_on_node(int (*threadfn)(void *data),
 	create->done = &done;
 
 	spin_lock(&kthread_create_lock);
-	list_add_tail(&create->list, &kthread_create_list);
+	list_add_tail(&create->list, &kthread_create_list);		//sfw**kthread** create 放入 kthread_create_list
 	spin_unlock(&kthread_create_lock);
 
-	wake_up_process(kthreadd_task);
+	wake_up_process(kthreadd_task);	//sfw**kthread** 唤醒 kthreadd_task，它从 kthread_create_list 中取出 create，生成新的内核线程。
 	/*
 	 * Wait for completion in killable state, for I might be chosen by
 	 * the OOM killer while kthreadd is trying to allocate memory for
@@ -530,7 +530,7 @@ int kthread_stop(struct task_struct *k)
 }
 EXPORT_SYMBOL(kthread_stop);
 
-int kthreadd(void *unused)
+int kthreadd(void *unused)		//sfw**kthread**
 {
 	struct task_struct *tsk = current;
 
@@ -558,7 +558,7 @@ int kthreadd(void *unused)
 			list_del_init(&create->list);
 			spin_unlock(&kthread_create_lock);
 
-			create_kthread(create);
+			create_kthread(create);				//sfw**kthread**
 
 			spin_lock(&kthread_create_lock);
 		}

@@ -99,8 +99,8 @@ ENTRY(secondary_startup_64)
 	 *
 	 * %rsi holds a physical pointer to real_mode_data.
 	 *
-	 * We come here either from startup_64 (using physical addresses)
-	 * or from trampoline.S (using virtual addresses).
+	 * We come here either from startup_64 (using physical addresses)	//sfw**
+	 * or from trampoline.S (using virtual addresses).					//sfw**
 	 *
 	 * Using virtual addresses from trampoline.S removes the need
 	 * to have any identity mapped pages in the kernel page table

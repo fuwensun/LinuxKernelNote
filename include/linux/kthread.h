@@ -23,7 +23,7 @@ struct task_struct *kthread_create_on_node(int (*threadfn)(void *data),
  * the stopped state.  This is just a helper for kthread_create_on_node();
  * see the documentation there for more details.
  */
-#define kthread_create(threadfn, data, namefmt, arg...) \
+#define kthread_create(threadfn, data, namefmt, arg...) \					//sfw**kthread**
 	kthread_create_on_node(threadfn, data, NUMA_NO_NODE, namefmt, ##arg)
 
 
@@ -41,7 +41,7 @@ struct task_struct *kthread_create_on_cpu(int (*threadfn)(void *data),
  * Description: Convenient wrapper for kthread_create() followed by
  * wake_up_process().  Returns the kthread or ERR_PTR(-ENOMEM).
  */
-#define kthread_run(threadfn, data, namefmt, ...)			   \
+#define kthread_run(threadfn, data, namefmt, ...)			   \	//sfw**kthread**
 ({									   \
 	struct task_struct *__k						   \
 		= kthread_create(threadfn, data, namefmt, ## __VA_ARGS__); \

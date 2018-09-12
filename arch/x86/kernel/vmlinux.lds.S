@@ -151,7 +151,7 @@ SECTIONS
 		_sdata = .;
 
 		/* init_task */
-		INIT_TASK_DATA(THREAD_SIZE)
+		INIT_TASK_DATA(THREAD_SIZE)			//sfw**inittask**
 
 #ifdef CONFIG_X86_32
 		/* 32 bit has nosave before _edata */
