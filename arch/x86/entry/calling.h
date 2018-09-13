@@ -95,7 +95,7 @@ For 32-bit we have the following conventions - kernel is built with
 #define RSP		19*8
 #define SS		20*8
 
-#define SIZEOF_PTREGS	21*8
+#define SIZEOF_PTREGS	21*8		//sfw**
 
 .macro PUSH_AND_CLEAR_REGS rdx=%rdx rax=%rax save_ret=0
 	/*

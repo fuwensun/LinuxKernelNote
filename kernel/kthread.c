@@ -252,7 +252,7 @@ int tsk_fork_get_node(struct task_struct *tsk)
 	return NUMA_NO_NODE;
 }
 
-static void create_kthread(struct kthread_create_info *create)
+static void create_kthread(struct kthread_create_info *create)	//sfw**kthread**
 {
 	int pid;
 
@@ -260,7 +260,7 @@ static void create_kthread(struct kthread_create_info *create)
 	current->pref_node_fork = create->node;
 #endif
 	/* We want our own signal handler (we take no signals by default). */
-	pid = kernel_thread(kthread, create, CLONE_FS | CLONE_FILES | SIGCHLD);
+	pid = kernel_thread(kthread, create, CLONE_FS | CLONE_FILES | SIGCHLD);	//sfw**kthread**
 	if (pid < 0) {
 		/* If user was SIGKILLed, I release the structure. */
 		struct completion *done = xchg(&create->done, NULL);
@@ -275,7 +275,7 @@ static void create_kthread(struct kthread_create_info *create)
 }
 
 static __printf(4, 0)
-struct task_struct *__kthread_create_on_node(int (*threadfn)(void *data),
+struct task_struct *__kthread_create_on_node(int (*threadfn)(void *data),//sfw**kthread** 
 						    void *data, int node,
 						    const char namefmt[],
 						    va_list args)
@@ -355,7 +355,7 @@ struct task_struct *__kthread_create_on_node(int (*threadfn)(void *data),
  *
  * Returns a task_struct or ERR_PTR(-ENOMEM) or ERR_PTR(-EINTR).
  */
-struct task_struct *kthread_create_on_node(int (*threadfn)(void *data),
+struct task_struct *kthread_create_on_node(int (*threadfn)(void *data),	//sfw**kthread**
 					   void *data, int node,
 					   const char namefmt[],
 					   ...)

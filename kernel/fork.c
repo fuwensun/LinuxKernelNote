@@ -1570,7 +1570,7 @@ static inline void rcu_copy_process(struct task_struct *p)
  * parts of the process environment (as per the clone
  * flags). The actual kick-off is left to the caller.
  */
-static __latent_entropy struct task_struct *copy_process(
+static __latent_entropy struct task_struct *copy_process(		//sfw**kthread**
 					unsigned long clone_flags,
 					unsigned long stack_start,
 					unsigned long stack_size,
@@ -2055,7 +2055,7 @@ struct task_struct *fork_idle(int cpu)
  * It copies the process, and if successful kick-starts
  * it and waits for it to finish using the VM if required.
  */
-long _do_fork(unsigned long clone_flags,
+long _do_fork(unsigned long clone_flags,			//sfw**kthread**
 	      unsigned long stack_start,
 	      unsigned long stack_size,
 	      int __user *parent_tidptr,
@@ -2086,7 +2086,7 @@ long _do_fork(unsigned long clone_flags,
 			trace = 0;
 	}
 
-	p = copy_process(clone_flags, stack_start, stack_size,
+	p = copy_process(clone_flags, stack_start, stack_size,		//sfw**kthread**
 			 child_tidptr, NULL, trace, tls, NUMA_NO_NODE);
 	add_latent_entropy();
 
@@ -2143,7 +2143,7 @@ long do_fork(unsigned long clone_flags,
 /*
  * Create a kernel thread.
  */
-pid_t kernel_thread(int (*fn)(void *), void *arg, unsigned long flags)
+pid_t kernel_thread(int (*fn)(void *), void *arg, unsigned long flags)//sfw*kthread**
 {
 	return _do_fork(flags|CLONE_VM|CLONE_UNTRACED, (unsigned long)fn,
 		(unsigned long)arg, NULL, NULL, 0);
